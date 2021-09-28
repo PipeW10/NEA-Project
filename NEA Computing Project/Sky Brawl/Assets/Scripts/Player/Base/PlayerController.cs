@@ -173,12 +173,6 @@ public class PlayerController : MonoBehaviour
     //On OnCollisionEnter2D is called whenever the object collides (touches) another obejct in the game
     private void OnCollisionEnter2D(Collision2D collision)
     {
-        //If they collide with a part from the map cage, they die
-        if (collision .gameObject.layer == 11)
-        {
-            StartCoroutine(GetComponent<PlayerHealth>().Die());
-        }
-
         //Checkforground is called
         //This checks whether the character is on the ground
         CheckForGround();

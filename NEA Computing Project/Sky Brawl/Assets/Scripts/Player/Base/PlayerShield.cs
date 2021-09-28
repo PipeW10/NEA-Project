@@ -21,10 +21,10 @@ public class PlayerShield : MonoBehaviour
     void Update()
     {
 
-        //If the shield button is held down and teh shield is currently off ShieldOn is called
+        //If the shield button is held down and the shield is currently off and the timer hasn't surpased the max time allowed, ShieldOn is called
         if (Input.GetButton("Shield") && isShieldOn == false 
             && GetComponent<KnockBackEffect>().isKnockedBack == false 
-            && shieldTimer < shieldMaxTime )
+            && shieldTimer < shieldMaxTime)
         {
             ShieldOn();
         }
@@ -35,19 +35,29 @@ public class PlayerShield : MonoBehaviour
             ShieldOff();
         }
 
+        //If the shield is on, the shield degeneration subroutine is called
         if(isShieldOn)
         {
             ShieldDegeneration();
         }
+        //Else the timer is decreased by the amount of time elapsed so if the shield is turned on just after it has been used, it doesn't last as long
+        else if (shieldTimer > 0)
+        {
+            shieldTimer -= Time.deltaTime;
+        }
     }
 
+    //Makes the shield fade away with time
     private void ShieldDegeneration()
     {
+        //Adds the time elapsed to the timer
         shieldTimer += Time.deltaTime;
+        //If the timer is greater than the maximum shield time allowed the shield is turned off
         if (shieldTimer >= shieldMaxTime)
         {
             ShieldOff();
         }
+        //Else the shield colour slowly fades to white as the timer increases
         else
         {
         sprite.color = Color.Lerp(Color.blue, Color.white, shieldTimer / shieldMaxTime);
@@ -74,10 +84,5 @@ public class PlayerShield : MonoBehaviour
         sprite.color = Color.white;
         //Enables player movement
         playerMovement.enabled = true;
-        if (!Input.GetButton("Shield"))
-        {
-            //Resets the shield timer
-            shieldTimer = 0;
-        }
     }
 }

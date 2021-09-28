@@ -7,6 +7,7 @@ public class PlayerHealth : MonoBehaviour
     private Animator animator;
     private Rigidbody2D rigidBody;
     private HealthText healthText;
+    private SpriteRenderer spriteRenderer;
     public float playerCurrentHealth = 0; 
 
     [Header("Player Variables")]
@@ -19,10 +20,11 @@ public class PlayerHealth : MonoBehaviour
     void Start()
     {
         isDead = false;
-        //Sets the variables rigidBody, healthText and animator to the character's Rigibody2D, HealthText and Animator Components in order to easily access variables
+        //Sets the variables rigidBody, healthText and animator to the character's Rigibody2D, HealthText, SpriteRenderer and Animator Components in order to easily access variables
         animator = GetComponent<Animator>();
         rigidBody = GetComponent<Rigidbody2D>();
         healthText = GetComponent<HealthText>();
+        spriteRenderer = GetComponent<SpriteRenderer>();
         //Calls setHealthText so it updates at the start
         SetHealthText();
     }
@@ -45,8 +47,13 @@ public class PlayerHealth : MonoBehaviour
             //Rounds their health and calls the update health script
             Mathf.Round(playerCurrentHealth);
             healthText.UpdateHealth(playerCurrentHealth);
-            //Performs a knockback effect on the player
-            GetComponent<KnockBackEffect>().KnockBackCharacter(attacker, knockForceX, knockForceY);
+
+            //If a knock force effect should be applied
+            if (knockForceX !=0  && knockForceY != 0)
+            {
+                //Performs a knockback effect on the player
+                GetComponent<KnockBackEffect>().KnockBackCharacter(attacker, knockForceX, knockForceY);
+            }
             //Plays the hurt animation
             animator.SetTrigger("Hurt");
         }
@@ -77,7 +84,8 @@ public class PlayerHealth : MonoBehaviour
         //Sets the players velocity at 0 and disables their gravity to stop them falling
         rigidBody.gravityScale = 0;
         rigidBody.velocity = new Vector2(0, 0);
-
+        //Disables the player's sprite renderer
+        spriteRenderer.enabled = false; 
         //waits for a set amount of time before executing the next line
         yield return new WaitForSeconds(respawnTime);
 
@@ -95,6 +103,8 @@ public class PlayerHealth : MonoBehaviour
             rigidBody.gravityScale = 2;
             //Re-activates their box collider
             GetComponent<BoxCollider2D>().enabled = true;
+            //Enables sprite renderer
+            spriteRenderer.enabled = true;
             //Respawns the player at the respawn point
             transform.position = respawnPoint.position;
         }

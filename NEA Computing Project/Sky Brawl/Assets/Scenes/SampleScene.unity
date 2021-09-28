@@ -194,6 +194,7 @@ GameObject:
   - component: {fileID: 51578707}
   - component: {fileID: 51578709}
   - component: {fileID: 51578708}
+  - component: {fileID: 51578710}
   m_Layer: 11
   m_Name: Left Bound
   m_TagString: Untagged
@@ -209,8 +210,8 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 51578706}
   m_LocalRotation: {x: -0, y: -0, z: 0.7071068, w: 0.7071068}
-  m_LocalPosition: {x: -26.4, y: -0.455, z: 88.29448}
-  m_LocalScale: {x: 34.71101, y: 0.23734, z: 1}
+  m_LocalPosition: {x: -26.4, y: 3, z: 88.29448}
+  m_LocalScale: {x: 41.79553, y: 0.28578112, z: 1.2041}
   m_Children: []
   m_Father: {fileID: 746849586}
   m_RootOrder: 0
@@ -225,7 +226,7 @@ BoxCollider2D:
   m_Enabled: 1
   m_Density: 1
   m_Material: {fileID: 0}
-  m_IsTrigger: 0
+  m_IsTrigger: 1
   m_UsedByEffector: 0
   m_UsedByComposite: 0
   m_Offset: {x: 0, y: 0}
@@ -292,6 +293,19 @@ SpriteRenderer:
   m_WasSpriteAssigned: 1
   m_MaskInteraction: 0
   m_SpriteSortPoint: 0
+--- !u!114 &51578710
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 51578706}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: fe8bf9c7bf709d3489f664416893bc97, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  isBottomWall: 0
 --- !u!1 &90944937
 GameObject:
   m_ObjectHideFlags: 0
@@ -756,6 +770,7 @@ GameObject:
   - component: {fileID: 210934159}
   - component: {fileID: 210934161}
   - component: {fileID: 210934160}
+  - component: {fileID: 210934162}
   m_Layer: 11
   m_Name: Lower Bound
   m_TagString: Untagged
@@ -772,7 +787,7 @@ Transform:
   m_GameObject: {fileID: 210934158}
   m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
   m_LocalPosition: {x: 1.0927, y: -17.7, z: 88.29448}
-  m_LocalScale: {x: 56.24833, y: 0.23734, z: 1}
+  m_LocalScale: {x: 103.26842, y: 0.23734, z: 1}
   m_Children: []
   m_Father: {fileID: 746849586}
   m_RootOrder: 2
@@ -787,7 +802,7 @@ BoxCollider2D:
   m_Enabled: 1
   m_Density: 1
   m_Material: {fileID: 0}
-  m_IsTrigger: 0
+  m_IsTrigger: 1
   m_UsedByEffector: 0
   m_UsedByComposite: 0
   m_Offset: {x: 0, y: 0}
@@ -854,6 +869,19 @@ SpriteRenderer:
   m_WasSpriteAssigned: 1
   m_MaskInteraction: 0
   m_SpriteSortPoint: 0
+--- !u!114 &210934162
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 210934158}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: fe8bf9c7bf709d3489f664416893bc97, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  isBottomWall: 1
 --- !u!1 &281077465
 GameObject:
   m_ObjectHideFlags: 0
@@ -1883,6 +1911,7 @@ GameObject:
   - component: {fileID: 633934519}
   - component: {fileID: 633934521}
   - component: {fileID: 633934520}
+  - component: {fileID: 633934522}
   m_Layer: 11
   m_Name: Right Bound
   m_TagString: Untagged
@@ -1898,8 +1927,8 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 633934518}
   m_LocalRotation: {x: -0, y: -0, z: 0.7071068, w: 0.7071068}
-  m_LocalPosition: {x: 28.7, y: -0.4542, z: 88.29448}
-  m_LocalScale: {x: 33.80058, y: 0.23734, z: 1}
+  m_LocalPosition: {x: 28.7, y: 2.9, z: 88.29448}
+  m_LocalScale: {x: 42.254105, y: 0.23734, z: 1}
   m_Children: []
   m_Father: {fileID: 746849586}
   m_RootOrder: 1
@@ -1914,7 +1943,7 @@ BoxCollider2D:
   m_Enabled: 1
   m_Density: 1
   m_Material: {fileID: 0}
-  m_IsTrigger: 0
+  m_IsTrigger: 1
   m_UsedByEffector: 0
   m_UsedByComposite: 0
   m_Offset: {x: 0, y: 0}
@@ -1981,6 +2010,19 @@ SpriteRenderer:
   m_WasSpriteAssigned: 1
   m_MaskInteraction: 0
   m_SpriteSortPoint: 0
+--- !u!114 &633934522
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 633934518}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: fe8bf9c7bf709d3489f664416893bc97, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  isBottomWall: 0
 --- !u!1 &734532887
 GameObject:
   m_ObjectHideFlags: 0
@@ -3221,6 +3263,7 @@ GameObject:
   - component: {fileID: 1852094578}
   - component: {fileID: 1852094580}
   - component: {fileID: 1852094579}
+  - component: {fileID: 1852094581}
   m_Layer: 11
   m_Name: Upper Bound
   m_TagString: Untagged
@@ -3236,8 +3279,8 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1852094577}
   m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
-  m_LocalPosition: {x: -0.00000011921, y: 16.52, z: 88.29448}
-  m_LocalScale: {x: 60.88501, y: 0.23734, z: 1}
+  m_LocalPosition: {x: 0.00000047684, y: 16.52, z: 88.29448}
+  m_LocalScale: {x: 101.22133, y: 0.23734, z: 1}
   m_Children: []
   m_Father: {fileID: 746849586}
   m_RootOrder: 3
@@ -3252,7 +3295,7 @@ BoxCollider2D:
   m_Enabled: 1
   m_Density: 1
   m_Material: {fileID: 0}
-  m_IsTrigger: 0
+  m_IsTrigger: 1
   m_UsedByEffector: 0
   m_UsedByComposite: 0
   m_Offset: {x: 0, y: 0}
@@ -3319,6 +3362,19 @@ SpriteRenderer:
   m_WasSpriteAssigned: 1
   m_MaskInteraction: 0
   m_SpriteSortPoint: 0
+--- !u!114 &1852094581
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1852094577}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: fe8bf9c7bf709d3489f664416893bc97, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  isBottomWall: 0
 --- !u!1 &1919862605
 GameObject:
   m_ObjectHideFlags: 0
@@ -3537,7 +3593,7 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 2061320519}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: -4.6790667, y: -4.209937, z: -0.19199635}
+  m_LocalPosition: {x: -5.4, y: -4.75, z: -0.19199635}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children:
   - {fileID: 588284332788150823}
@@ -4244,7 +4300,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 7644274894915911691, guid: 296765cd9e7031b4db3606b7cf36db6a, type: 3}
       propertyPath: m_LocalPosition.x
-      value: -4.7409334
+      value: -5.19
       objectReference: {fileID: 0}
     - target: {fileID: 7644274894915911691, guid: 296765cd9e7031b4db3606b7cf36db6a, type: 3}
       propertyPath: m_LocalPosition.y
