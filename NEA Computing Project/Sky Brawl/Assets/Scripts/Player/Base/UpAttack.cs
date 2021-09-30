@@ -4,26 +4,20 @@ public class UpAttack : MonoBehaviour
 {
     private Rigidbody2D rigidBody;
     private PlayerController controller;
-    private SpriteRenderer spriteRenderer;
     private bool hasJumpAttacked;
 
     [Header("Player Variables")]
     [SerializeField] private float jumpAttackForce;
-    [SerializeField] private float attackRange;
-    [SerializeField] private float knockForceX, knockForceY;
-    [SerializeField] private int upAttackDamage;
-    [SerializeField] private LayerMask enemyLayers;
 
     [Header("Player Links")]
-    [SerializeField] private Transform upAttackPoint;
+    [SerializeField] private GameObject upAttackCircle;
     
     // Start is called before the first frame update
     void Start()
     {
-        //Sets the variables rigidBody and animator to the character's Rigibody2D and Animator Components in order to easily access variables
+        //Sets the variables rigidBody and animator to the character's Rigibody2D and controller Components in order to easily access variables
         rigidBody = GetComponent<Rigidbody2D>();
         controller = GetComponent<PlayerController>();
-        spriteRenderer = GetComponent<SpriteRenderer>();
     }
 
     // Update is called once per frame
@@ -38,13 +32,7 @@ public class UpAttack : MonoBehaviour
         //Checks whether the player is performing an up attack and falling to change their color back to white
         if(hasJumpAttacked && rigidBody.velocity.y < 0)
         {
-            spriteRenderer.color = Color.white;
-        }
-
-        //Checks whether the player is performing an up attack and are rising to check whether to deal damage
-        if (hasJumpAttacked && rigidBody.velocity.y > 0)
-        {
-            CheckAndAttack();
+            upAttackCircle.SetActive(false);
         }
     }
 
@@ -53,10 +41,13 @@ public class UpAttack : MonoBehaviour
     {
         //Sets hasJumpAttacked to true
         hasJumpAttacked = true;
-        //Performs a jump
-        rigidBody.AddForce(new Vector2(0, jumpAttackForce), ForceMode2D.Impulse);
-        //Changes the player's colour to red
-        spriteRenderer.color = Color.red;
+        if (controller.jumpCount >= 2)
+        {
+            //Performs a jump
+            rigidBody.velocity = new Vector2(rigidBody.velocity.x, 0);
+            rigidBody.AddForce(new Vector2(0, jumpAttackForce), ForceMode2D.Impulse);
+        }
+        upAttackCircle.SetActive(true); 
     }
 
     //Detects if an object collides with the player
@@ -67,22 +58,6 @@ public class UpAttack : MonoBehaviour
         {
             //Changes hasJumpedAttacked to false
             hasJumpAttacked = false;
-        }
-    }
-
-    //Checks for an attack
-    private void CheckAndAttack()
-    {
-        //Draws a circle over a certain point and finds all the objects inside a certain radius
-        Collider2D[] hitEnemies = Physics2D.OverlapCircleAll(upAttackPoint.position, attackRange, enemyLayers);
-
-        //Calls the TakeDamage sub-routine in each of the attacked players' PlayerHealth Script
-        foreach (Collider2D enemy in hitEnemies)
-        {
-            if (enemy != gameObject)
-            {
-                enemy.GetComponent<PlayerHealth>().TakeDamage(upAttackDamage, gameObject, knockForceX, knockForceY);
-            }
         }
     }
 }

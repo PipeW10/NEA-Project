@@ -38,6 +38,9 @@ public class PlayerSpinAttack : MonoBehaviour
 
     private IEnumerator SpinAttack()
     {
+        //Sets the player's veloctiy to 0
+        rigidBody.velocity = new Vector2(rigidBody.velocity.x, 0);
+        
         //Detects any enemies inside the attack range
         Collider2D[] hitEnemies = Physics2D.OverlapAreaAll(spinPoint1.position, spinPoint2.position, enemyLayers);
 

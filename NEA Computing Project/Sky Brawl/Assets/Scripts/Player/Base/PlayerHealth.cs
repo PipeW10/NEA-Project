@@ -14,6 +14,7 @@ public class PlayerHealth : MonoBehaviour
     [SerializeField] private float healthDamping;
     [SerializeField] private int playerLives;
     [SerializeField] private float respawnTime;
+    [SerializeField] private float gravityStrength;
     [SerializeField] private Transform respawnPoint;
 
     // Start is called before the first frame update
@@ -100,7 +101,7 @@ public class PlayerHealth : MonoBehaviour
                 comp.enabled = true;
             }
             //Sets their gravity back to normal
-            rigidBody.gravityScale = 2;
+            rigidBody.gravityScale = gravityStrength;
             //Re-activates their box collider
             GetComponent<BoxCollider2D>().enabled = true;
             //Enables sprite renderer

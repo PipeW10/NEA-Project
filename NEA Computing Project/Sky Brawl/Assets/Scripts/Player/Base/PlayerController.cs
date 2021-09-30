@@ -7,7 +7,7 @@ public class PlayerController : MonoBehaviour
     private Animator animator;
     //varibles needed throughout the script. Privated as none need to be accessed elsewhere
     private float xMovement;
-    private int jumpCount = 0;
+    [HideInInspector] public int jumpCount = 0;
     [HideInInspector] public bool isWallSliding, isTouchingWall, isGrounded;
    
     [Header("Player Varibles")]
@@ -137,7 +137,7 @@ public class PlayerController : MonoBehaviour
         //Checks whether the player if moving downwards and if they are, sets their velocity to 0 to make the jump overcome any gravity effects
         if (rigidBody.velocity.y < 0)
         {
-            rigidBody.velocity = Vector2.zero;
+            rigidBody.velocity = new Vector2 (rigidBody.velocity.x, 0);
         }
         //If the player is wall sliding so a different force is added to the character
         if (isWallSliding)

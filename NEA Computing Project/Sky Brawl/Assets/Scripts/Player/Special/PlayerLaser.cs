@@ -43,7 +43,7 @@ public class PlayerLaser : MonoBehaviour
         //Plays attack animation
         animator.SetTrigger("Attack");
         //Sets the player y velocity to 0
-        rigidBody.velocity = Vector2.zero;
+        rigidBody.velocity = new Vector2(rigidBody.velocity.x, 0);
         //If hitInfo is not null (something was hit)
         if (hitInfo)
         {
