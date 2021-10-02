@@ -8,7 +8,8 @@ public class PlayerHealth : MonoBehaviour
     private Rigidbody2D rigidBody;
     private HealthText healthText;
     private SpriteRenderer spriteRenderer;
-    public float playerCurrentHealth = 0; 
+    private PlayerShield shield;
+    [HideInInspector] public float playerCurrentHealth = 0; 
 
     [Header("Player Variables")]
     [SerializeField] private float healthDamping;
@@ -26,6 +27,7 @@ public class PlayerHealth : MonoBehaviour
         rigidBody = GetComponent<Rigidbody2D>();
         healthText = GetComponent<HealthText>();
         spriteRenderer = GetComponent<SpriteRenderer>();
+        shield = GetComponent<PlayerShield>();
         //Calls setHealthText so it updates at the start
         SetHealthText();
     }
@@ -41,7 +43,7 @@ public class PlayerHealth : MonoBehaviour
     public void TakeDamage (int damageDealt, GameObject attacker, float knockForceX, float knockForceY)
     {
         //Only take damage is the player's shield is off, they didn't attack themsleves and they are not dead
-        if (GetComponent<PlayerShield>().isShieldOn == false && gameObject != attacker && isDead == false)
+        if (shield.isShieldOn == false && gameObject != attacker && isDead == false)
         {
             //Increases the player's "percentage" with their damping effect
             playerCurrentHealth += damageDealt * healthDamping;
@@ -57,6 +59,10 @@ public class PlayerHealth : MonoBehaviour
             }
             //Plays the hurt animation
             animator.SetTrigger("Hurt");
+        }
+        else if (shield.isShieldOn && gameObject != attacker && isDead == false)
+        {
+            shield.TakeShieldDamage(damageDealt);
         }
     }
 

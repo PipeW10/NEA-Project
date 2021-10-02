@@ -135,7 +135,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   projectileSpeed: 500
-  projectileDamage: 30
+  projectileDamage: 15
   knockForceX: 200
   knockForceY: 200
   projectileImpact: {fileID: 1041913863353449789, guid: a8c2f53015a9f054298ee6a0537019ab, type: 3}

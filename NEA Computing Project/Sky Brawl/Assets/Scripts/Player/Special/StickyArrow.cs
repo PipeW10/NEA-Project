@@ -24,7 +24,7 @@ public class StickyArrow : MonoBehaviour
             enemyControl.enabled = false;
             enemySprite.color = Color.green;
             //Waits for a certain amount of tie before executing next lines
-            yield return new WaitForSeconds(4);
+            yield return new WaitForSeconds(stickTime * (1 + (enemyHit.GetComponent<PlayerHealth>().playerCurrentHealth / 100)));
             //Changes their colour back and re-enables their movement
             enemySprite.color = Color.white;
             enemyControl.enabled = true;

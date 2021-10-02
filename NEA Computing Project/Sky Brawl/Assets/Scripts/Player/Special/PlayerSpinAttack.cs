@@ -17,12 +17,15 @@ public class PlayerSpinAttack : MonoBehaviour
     [SerializeField] private Transform spinPoint1;
     [SerializeField] private Transform spinPoint2;
     [SerializeField] private LayerMask enemyLayers;
+    [SerializeField] private SpriteRenderer attackRectangle;
 
     void Start()
     {
         //Sets the variables rigidBody and animator to the character's Rigibody2D and Animator Components in order to easily access variables
         animator = GetComponent<Animator>();
         rigidBody = GetComponent<Rigidbody2D>();
+        //Disables the attack rectangle at the start of the match
+        attackRectangle.enabled = false;
     }
 
     // Update is called once per frame
@@ -55,11 +58,14 @@ public class PlayerSpinAttack : MonoBehaviour
 
         //Animations begin
         //Not an actual animation so all of the follwoing is needed
+        attackRectangle.enabled = true;
         transform.rotation = Quaternion.Euler(0, 0, 0);
         animator.SetTrigger("Spin");
         yield return new WaitForSeconds(0.05f);
         transform.rotation = Quaternion.Euler(0, 180, 0);
         animator.SetTrigger("Spin");
+        yield return new WaitForSeconds(0.15f);
+        attackRectangle.enabled = false;
     }
 
     //Draws out the player's attack range

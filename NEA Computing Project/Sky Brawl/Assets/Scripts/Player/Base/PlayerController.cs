@@ -134,11 +134,9 @@ public class PlayerController : MonoBehaviour
         animator.SetTrigger("Jump");
         animator.SetBool("IsJumping", true);
 
-        //Checks whether the player if moving downwards and if they are, sets their velocity to 0 to make the jump overcome any gravity effects
-        if (rigidBody.velocity.y < 0)
-        {
-            rigidBody.velocity = new Vector2 (rigidBody.velocity.x, 0);
-        }
+        //Sets their velocity to 0 to make the jump overcome any gravity effects and make double jumps more consistent
+       rigidBody.velocity = new Vector2(rigidBody.velocity.x, 0);
+
         //If the player is wall sliding so a different force is added to the character
         if (isWallSliding)
         {

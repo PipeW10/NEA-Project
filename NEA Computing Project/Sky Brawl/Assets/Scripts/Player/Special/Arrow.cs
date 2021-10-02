@@ -65,7 +65,7 @@ public class Arrow : MonoBehaviour
                 else
                 {
                     //A fire effect is created where the arrow lands and set to the fireEffect variable
-                    GameObject fireEffect = Instantiate(arrowMapImpact, transform.position, Quaternion.identity);
+                    GameObject fireEffect = Instantiate(arrowMapImpact, new Vector2(transform.position.x, transform.position.y + 0.13f), Quaternion.identity);
                     //The shooter variable in the FireLingerEffect script is set to shooter
                     fireEffect.GetComponentInChildren<FireLingerEffect>().shooter = shooter;
                 }

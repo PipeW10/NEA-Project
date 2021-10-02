@@ -1,30 +1,37 @@
-using System;
 using UnityEngine;
 
 public class PlayerShield : MonoBehaviour
 {
     [HideInInspector]  public bool isShieldOn = false;
-   
+
+    private float shieldTimer;
+    private float shieldConstant;
     private SpriteRenderer sprite;
     private MonoBehaviour playerMovement;
     [Header("Shield Variables")]
-    [SerializeField] private float shieldMaxTime;
-    private float shieldTimer;
-
+    [SerializeField] private float shieldMaxTime;  
+    [SerializeField] private float shieldMaxHealth;
+    [SerializeField] private float regenDampener;
+    
     private void Start()
     {
+        //Sets the variables rigidBody and animator to the character's Controller and Sprite Renderer Components in order to easily access variables
         sprite = GetComponent<SpriteRenderer>();
         playerMovement = GetComponent<PlayerController>();
+        //Sets a constant multiplier to be used to change between the shield timer and health
+        shieldConstant = shieldMaxTime * shieldMaxHealth;
+        //Sets the shield timer and health to the values they need to be at the start of the match
+        shieldTimer = shieldMaxTime;
     }
 
     // Update is called once per frame
-    void Update()
+    private void Update()
     {
 
         //If the shield button is held down and the shield is currently off and the timer hasn't surpased the max time allowed, ShieldOn is called
         if (Input.GetButton("Shield") && isShieldOn == false 
             && GetComponent<KnockBackEffect>().isKnockedBack == false 
-            && shieldTimer < shieldMaxTime)
+            && shieldTimer > 0)
         {
             ShieldOn();
         }
@@ -40,28 +47,36 @@ public class PlayerShield : MonoBehaviour
         {
             ShieldDegeneration();
         }
-        //Else the timer is decreased by the amount of time elapsed so if the shield is turned on just after it has been used, it doesn't last as long
-        else if (shieldTimer > 0)
+        //Else the timer is increased by the amount of time elapsed so if the shield is turned on just after it has been used, it doesn't last as long
+        else if (shieldTimer < shieldMaxTime )
         {
-            shieldTimer -= Time.deltaTime;
+            //Dampener stops the player from spamming shield too much
+            shieldTimer += Time.deltaTime * regenDampener;
         }
     }
 
     //Makes the shield fade away with time
     private void ShieldDegeneration()
     {
-        //Adds the time elapsed to the timer
-        shieldTimer += Time.deltaTime;
-        //If the timer is greater than the maximum shield time allowed the shield is turned off
-        if (shieldTimer >= shieldMaxTime)
+        //Subratcts the time elapsed to the timer
+        shieldTimer -= Time.deltaTime;
+        
+        //If the timer is greater than the maximum shield time allowed the shield is turned off       
+        if (shieldTimer <= 0)
         {
             ShieldOff();
         }
-        //Else the shield colour slowly fades to white as the timer increases
+        //Else the shield colour slowly fades to white as the timer decreases
         else
         {
-        sprite.color = Color.Lerp(Color.blue, Color.white, shieldTimer / shieldMaxTime);
+            sprite.color = Color.Lerp(Color.white, Color.blue, shieldTimer / shieldMaxTime);
         }
+    }
+
+    //Called from the player health script when the player is attacked whilst their shield is on
+    public void TakeShieldDamage(int damageDealt)
+    {
+        shieldTimer -= shieldConstant / damageDealt;
     }
 
     //Performs shield animations and disables movement
