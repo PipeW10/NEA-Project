@@ -4,12 +4,14 @@ public class PlayerMelee : MonoBehaviour
 {
     private Animator animator;
     private Rigidbody2D rigidBody;
+    private bool canAttack;
 
     [Header("Player Variables")]
     [SerializeField] private float meleeRange;
     [SerializeField] private int meleeDamage;
     [SerializeField] private float knockForceX;
     [SerializeField] private float knockForceY;
+    [SerializeField] private float cooldownTime;
 
     [Header("Player Links")]
     [SerializeField] private Transform meleePoint;
@@ -20,6 +22,8 @@ public class PlayerMelee : MonoBehaviour
         //Sets the variables rigidBody and animator to the character's Rigibody2D and Animator Components in order to easily access variables
         animator = GetComponent<Animator>();
         rigidBody = GetComponent<Rigidbody2D>();
+        //Sets canAttack to true at the beginning of the game
+        canAttack = true;
     }
 
 
@@ -28,7 +32,8 @@ public class PlayerMelee : MonoBehaviour
         //Detects whether the attack button was pressed and the calls MeleeAttack 
         //The shield has to be off
         if (Input.GetButtonDown("Fire1") && GetComponent<PlayerShield>().isShieldOn == false 
-            && GetComponent<KnockBackEffect>().isKnockedBack == false && !Input.GetButton("Jump"))
+            && GetComponent<KnockBackEffect>().isKnockedBack == false && !Input.GetButton("Jump")
+            && canAttack)
         {
             MeleeAttack();
         }
@@ -55,6 +60,26 @@ public class PlayerMelee : MonoBehaviour
             if (enemy != gameObject)
             {
                 enemy.GetComponent<PlayerHealth>().TakeDamage(meleeDamage, gameObject, knockForceX, knockForceY);
+            }
+        }
+        CoolDownCounter();
+    }
+
+    //Makes it so that the player can only attack again once enough time hs elapsed
+    private void CoolDownCounter()
+    {
+        //Sets the timer to 0
+        float timer = 0;
+        //Disables the player;s attack
+        canAttack = false;
+        //Increses the counter by the amount of time elapsed
+        while (canAttack == false)
+        {
+            timer += Time.deltaTime;
+            if (timer >= cooldownTime)
+            {
+                //Enables the player's attack
+                canAttack = true;
             }
         }
     }

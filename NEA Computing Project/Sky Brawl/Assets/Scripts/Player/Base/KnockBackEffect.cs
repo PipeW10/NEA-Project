@@ -4,6 +4,8 @@ using UnityEngine;
 public class KnockBackEffect : MonoBehaviour
 {
     private Rigidbody2D rigidBody;
+    private PlayerHealth health;
+    private float noMoveTimer;
     [HideInInspector] public bool isKnockedBack;
 
     [Header("Knockback Varibles")]
@@ -14,6 +16,7 @@ public class KnockBackEffect : MonoBehaviour
     {
         //Sets the variable rigidBody character's Rigibody2D in order to easily access the variable
         rigidBody = GetComponent<Rigidbody2D>();
+        health = GetComponent<PlayerHealth>();
     }
 
     //Controls the knock back effect for the game object
@@ -27,17 +30,26 @@ public class KnockBackEffect : MonoBehaviour
         rigidBody.AddForce(directionX * knockForceX * (1 + GetComponent<PlayerHealth >().playerCurrentHealth/100));
         rigidBody.AddForce(directionY * knockForceY * (1 + GetComponent<PlayerHealth>().playerCurrentHealth/100));
         //Calls the PauseMovement subroutine
-        StartCoroutine(PauseMovement());
+        PauseMovement();
     }
 
     // IEnumerator lets me wait between executing different lines
-    private IEnumerator PauseMovement()
+    private void PauseMovement()
     {
+        bool canMove = false;
+
         //Disables the player's movement so they can't counter the knockback effect
         isKnockedBack = true;
         gameObject.GetComponent<PlayerController>().enabled = false;
-        yield return new WaitForSeconds(noMovementTime);
+        while (canMove == false ){
+            noMoveTimer += Time.deltaTime;
+            //Exits the loop either when the player is moving downwards or when enough time has elapsed
+            if (rigidBody.velocity.y < 0 && noMoveTimer >= (noMovementTime * health.playerCurrentHealth)){
+                canMove = true;
+            }
+        }
         isKnockedBack = false;
+        //Enables the player's movement
         gameObject.GetComponent<PlayerController>().enabled = true;
     }
 }

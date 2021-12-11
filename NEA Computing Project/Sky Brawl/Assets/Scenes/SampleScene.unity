@@ -2603,8 +2603,8 @@ MonoBehaviour:
   movementSpeed: 0.1
   jumpForce: 7
   doubleJumpForce: 6
-  xWallJumpForce: 5
-  yWallJumpForce: 2
+  xWallJumpForce: 2
+  yWallJumpForce: 5
   checkRadius: 0.3
   wallSlidingSpeed: 0.08
   groundLayer:
@@ -2776,9 +2776,9 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 34fdd3f37a117b34c9037c5e6389eca9, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  rayDamage: 20
-  knockForceX: 0
-  knockForceY: 0
+  rayDamage: 4
+  knockForceX: 10
+  knockForceY: 50
   firePoint: {fileID: 2123980512}
   impactEffect: {fileID: 1041913863353449789, guid: a8c2f53015a9f054298ee6a0537019ab, type: 3}
   laserLine: {fileID: 940360364}
@@ -4166,9 +4166,9 @@ GameObject:
   - component: {fileID: 2120492376}
   - component: {fileID: 2120492380}
   - component: {fileID: 2120492375}
-  - component: {fileID: 2120492381}
   - component: {fileID: 2120492382}
   - component: {fileID: 2120492383}
+  - component: {fileID: 2120492381}
   - component: {fileID: 2120492387}
   - component: {fileID: 2120492384}
   - component: {fileID: 2120492385}
@@ -4200,8 +4200,8 @@ MonoBehaviour:
   movementSpeed: 0.1
   jumpForce: 7
   doubleJumpForce: 6
-  xWallJumpForce: 5
-  yWallJumpForce: 2
+  xWallJumpForce: 2
+  yWallJumpForce: 5
   checkRadius: 0.3
   wallSlidingSpeed: 0.08
   groundLayer:
@@ -4364,9 +4364,9 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   meleeRange: 0.7
-  meleeDamage: 50
-  knockForceX: 300
-  knockForceY: 300
+  meleeDamage: 20
+  knockForceX: 250
+  knockForceY: 250
   meleePoint: {fileID: 734532888}
   enemyLayers:
     serializedVersion: 2
@@ -4417,9 +4417,9 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: f6cf97bfb82b3004b999daac2e8f5a37, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  spinDamage: 30
-  knockForceX: 0
-  knockForceY: 0
+  spinDamage: 10
+  knockForceX: 30
+  knockForceY: 50
   spinPoint1: {fileID: 533254061}
   spinPoint2: {fileID: 1960665930}
   enemyLayers:

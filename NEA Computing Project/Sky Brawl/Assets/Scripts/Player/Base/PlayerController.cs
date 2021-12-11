@@ -13,7 +13,7 @@ public class PlayerController : MonoBehaviour
     [Header("Player Varibles")]
     [SerializeField] private int YRotation;
     // Serializing fields allows me to change the varible's value from the inspector table whilst playing
-    [SerializeField] private float movementSpeed, jumpForce, doubleJumpForce, xWallJumpForce, yWallJumpForce,checkRadius, wallSlidingSpeed;
+    [SerializeField] private float movementSpeed, jumpForce, doubleJumpForce, xWallJumpForce, yWallJumpForce, checkRadius, wallSlidingSpeed;
 
     [Header("Player Links")]
     [SerializeField] private LayerMask groundLayer;
@@ -97,7 +97,7 @@ public class PlayerController : MonoBehaviour
         }
         else
         {
-            //They are not wall sliding the teh boolean is set to false
+            //They are not wall sliding the the boolean is set to false
             isWallSliding = false;
         }
     }
@@ -200,5 +200,11 @@ public class PlayerController : MonoBehaviour
             animator.SetTrigger("Jump");
             animator.SetBool("IsJumping", true);
         }
+    }
+        //Draws a circle around the attack point to easily see and change the attack range
+    //Only used when developing the game
+    private void OnDrawGizmosSelected()
+    {
+        Gizmos.DrawWireSphere(groundCheck.position, checkRadius);
     }
 }
