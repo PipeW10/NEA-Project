@@ -9,6 +9,7 @@ public class Projectile : MonoBehaviour
     [SerializeField] private int projectileDamage;
     [SerializeField] private float knockForceX;
     [SerializeField] private float knockForceY;
+    [SerializeField] private float knockBackTime;
 
     [Header("Object Links")]
     [SerializeField] private GameObject projectileImpact;
@@ -33,7 +34,7 @@ public class Projectile : MonoBehaviour
             //If a PlayerHealth script is found, the TakeDamage sub-rountine will take place on the collider
             if (colliderHealth != null)
             {
-                colliderHealth.TakeDamage(projectileDamage, gameObject, knockForceX, knockForceY);
+                colliderHealth.TakeDamage(projectileDamage, gameObject, knockForceX, knockForceY, knockBackTime);
             }
 
             //Creates a bullet impact effect when a collision happens

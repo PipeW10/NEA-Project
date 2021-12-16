@@ -5,6 +5,7 @@ public class UpAttackCircle : MonoBehaviour
     [Header("Circle Variables")]
     [SerializeField] int upAttackDamage;
     [SerializeField] float knockForceX, knockForceY;
+    [SerializeField] private float knockBackTime;
 
     [Header("Circle Links")]
     [SerializeField] GameObject attacker;
@@ -24,7 +25,7 @@ public class UpAttackCircle : MonoBehaviour
             //If a PlayerHealth script is found, the TakeDamage sub-rountine will take place on the collider
             if (colliderHealth != null)
             {
-                colliderHealth.TakeDamage(upAttackDamage, attacker, knockForceX, knockForceY);
+                colliderHealth.TakeDamage(upAttackDamage, attacker, knockForceX, knockForceY, knockBackTime);
             }
     }
 }

@@ -3,6 +3,7 @@ using UnityEngine;
 
 public class PlayerController : MonoBehaviour
 {
+    private MasterControls playerControls;
     private Rigidbody2D rigidBody;
     private Animator animator;
     //varibles needed throughout the script. Privated as none need to be accessed elsewhere
@@ -20,7 +21,12 @@ public class PlayerController : MonoBehaviour
     [SerializeField] private LayerMask wallJumpLayer;
     [SerializeField] private Transform wallCheck, groundCheck;
 
-
+    private void Awake()
+    {
+        playerControls = new MasterControls();
+        playerControls.Game.Jump.performed += ctx => PlayerJump();
+        playerControls.Game.Duck.performed += ctx => StartCoroutine(PhaseThroughPlatform());
+    }
 
     // Start is called before the first frame update
     void Start()
@@ -28,33 +34,26 @@ public class PlayerController : MonoBehaviour
         //Sets the variables rigidBody and animator to the character's Rigibody2D and Animator Components in order to easily access variables
         rigidBody = GetComponent<Rigidbody2D>();
         animator = GetComponent<Animator>();
+
+    }
+
+    private void OnEnable()
+    {
+        playerControls.Game.Enable();
+    }
+
+    private void OnDisable()
+    {
+        playerControls.Game.Disable();
     }
 
     // Update is called once per frame
     void Update()
     {
-        //Stores a value from -1 to 1 depeding on which key is being pressed, making use of the Unity input system
-        xMovement = Input.GetAxis("Horizontal");
-
         //Calls Flip Player
         FlipPlayer();
 
-        //Sets the animation paramter speed to the characters's X velocity in order to correctly play animations
-        animator.SetFloat("Speed", Mathf.Abs(xMovement));
-
         CheckWallSlide();
-        
-        //Detects jump input then executes
-        if (Input.GetButtonDown("Jump") && jumpCount <2 && !Input.GetButton ("Fire1"))
-        {
-            PlayerJump();
-        }
-
-        //Detects whether the duck button is pressed and calls the Phase sub-routine
-        if (Input.GetButtonDown("Duck"))
-        {
-            StartCoroutine(PhaseThroughPlatform());
-        }
 
     }
 
@@ -63,7 +62,10 @@ public class PlayerController : MonoBehaviour
     {
         //Moves the player in the x axis depending on the variable xMovement and the character's movement speed.
         //This is done in FixedUpdate Instead of Upadate to make the movement smoother
+        xMovement = playerControls.Game.XMovement.ReadValue<float>();
         transform.position += new Vector3(xMovement, 0, 0) * movementSpeed;
+        //Sets the animation paramter speed to the characters's X velocity in order to correctly play animations
+        animator.SetFloat("Speed", Mathf.Abs(xMovement));
     }
 
     //Turns the player's collider into a trigger so they are not affected by the platforms and can phase through them
@@ -128,28 +130,32 @@ public class PlayerController : MonoBehaviour
 
     private void PlayerJump()
     {
-        //Increases jump count to make sure the player can only jump twice before having to land again
-        jumpCount += 1;
-        //Plays the jumping animation
-        animator.SetTrigger("Jump");
-        animator.SetBool("IsJumping", true);
+        if (jumpCount < 2)
+        {
+            
+            //Increases jump count to make sure the player can only jump twice before having to land again
+            jumpCount += 1;
+            //Plays the jumping animation
+            animator.SetTrigger("Jump");
+            animator.SetBool("IsJumping", true);
 
-        //Sets their velocity to 0 to make the jump overcome any gravity effects and make double jumps more consistent
-       rigidBody.velocity = new Vector2(rigidBody.velocity.x, 0);
+            //Sets their velocity to 0 to make the jump overcome any gravity effects and make double jumps more consistent
+           rigidBody.velocity = new Vector2(rigidBody.velocity.x, 0);
 
-        //If the player is wall sliding so a different force is added to the character
-        if (isWallSliding)
-        {
-            rigidBody.AddForce(new Vector2(xWallJumpForce * -xMovement, yWallJumpForce), ForceMode2D.Impulse);
-        }
-        //Checks whether the jump is the player's second or first jump and adds a force upwards depending
-        else if (jumpCount == 1)
-        {
-            rigidBody.AddForce(new Vector2(0, jumpForce), ForceMode2D.Impulse);
-        }
-        else
-        {
-            rigidBody.AddForce(new Vector2(0, doubleJumpForce), ForceMode2D.Impulse);
+            //If the player is wall sliding so a different force is added to the character
+            if (isWallSliding)
+            {
+                rigidBody.AddForce(new Vector2(xWallJumpForce * -xMovement, yWallJumpForce), ForceMode2D.Impulse);
+            }
+            //Checks whether the jump is the player's second or first jump and adds a force upwards depending
+            else if (jumpCount == 1)
+            {
+                rigidBody.AddForce(new Vector2(0, jumpForce), ForceMode2D.Impulse);
+            }
+            else
+            {
+                rigidBody.AddForce(new Vector2(0, doubleJumpForce), ForceMode2D.Impulse);
+            }
         }
 
     }

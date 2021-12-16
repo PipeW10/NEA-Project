@@ -7,9 +7,7 @@ public class KnockBackEffect : MonoBehaviour
     private PlayerHealth health;
     private float noMoveTimer;
     [HideInInspector] public bool isKnockedBack;
-
-    [Header("Knockback Varibles")]
-    [SerializeField] private float noMovementTime;
+    private float noMovementTime;
 
     // Start is called before the first frame update
     void Start()
@@ -19,9 +17,17 @@ public class KnockBackEffect : MonoBehaviour
         health = GetComponent<PlayerHealth>();
     }
 
+    private void Update()
+    {
+        if (isKnockedBack == true)
+        {
+            PauseMovement();
+        }
+    }
+
     //Controls the knock back effect for the game object
     //Normally called from a script attached to another game object
-    public void KnockBackCharacter (GameObject attacker, float knockForceX, float knockForceY)
+    public void KnockBackCharacter (GameObject attacker, float knockForceX, float knockForceY, float pausedTime)
     {
         //Sets the direction x and y variables to the direction we want the force to be applied
         Vector3 directionX = new Vector3(transform.position.x - attacker.transform.position.x, 0, 0);
@@ -29,6 +35,17 @@ public class KnockBackEffect : MonoBehaviour
         //Adds forces in the x and y directions
         rigidBody.AddForce(directionX * knockForceX * (1 + GetComponent<PlayerHealth >().playerCurrentHealth/100));
         rigidBody.AddForce(directionY * knockForceY * (1 + GetComponent<PlayerHealth>().playerCurrentHealth/100));
+        //Sets the noMovement time to the correct value
+        if ((health.playerCurrentHealth / 20) > 1)
+        {
+            noMovementTime = pausedTime * (health.playerCurrentHealth / 20);
+        }
+        else
+        {
+            noMovementTime = pausedTime;
+        }
+        //Resets the timer
+        noMoveTimer = 0;
         //Calls the PauseMovement subroutine
         PauseMovement();
     }
@@ -36,20 +53,16 @@ public class KnockBackEffect : MonoBehaviour
     // IEnumerator lets me wait between executing different lines
     private void PauseMovement()
     {
-        bool canMove = false;
-
         //Disables the player's movement so they can't counter the knockback effect
         isKnockedBack = true;
         gameObject.GetComponent<PlayerController>().enabled = false;
-        while (canMove == false ){
-            noMoveTimer += Time.deltaTime;
-            //Exits the loop either when the player is moving downwards or when enough time has elapsed
-            if (rigidBody.velocity.y < 0 && noMoveTimer >= (noMovementTime * health.playerCurrentHealth)){
-                canMove = true;
-            }
+        noMoveTimer += Time.deltaTime;
+        //Enables the players movement if they are falling and enough time has elapsed
+        if (rigidBody.velocity.y < 0 && noMoveTimer >= noMovementTime)
+        {
+            isKnockedBack = false;
+            //Enables the player's movement
+            gameObject.GetComponent<PlayerController>().enabled = true;
         }
-        isKnockedBack = false;
-        //Enables the player's movement
-        gameObject.GetComponent<PlayerController>().enabled = true;
     }
 }

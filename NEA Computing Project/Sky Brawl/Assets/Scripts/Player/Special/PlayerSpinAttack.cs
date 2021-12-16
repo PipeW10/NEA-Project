@@ -7,11 +7,16 @@ public class PlayerSpinAttack : MonoBehaviour
 {
     private Animator animator;
     private Rigidbody2D rigidBody;
+    private MasterControls playerControls;
+    private bool canAttack;
+    private float coolDownTimer;
 
     [Header("Player Variables")]
     [SerializeField] private int spinDamage;
     [SerializeField] private float knockForceX;
     [SerializeField] private float knockForceY;
+    [SerializeField] private float knockBackTime;
+    [SerializeField] private float coolDownTime;
 
     [Header("Player Links")]
     [SerializeField] private Transform spinPoint1;
@@ -26,6 +31,22 @@ public class PlayerSpinAttack : MonoBehaviour
         rigidBody = GetComponent<Rigidbody2D>();
         //Disables the attack rectangle at the start of the match
         attackRectangle.enabled = false;
+        canAttack = true;
+    }
+
+    private void Awake()
+    {
+        playerControls = new MasterControls();
+        playerControls.Game.Fire2.performed += ctx => StartCoroutine(SpinAttack());
+    }
+    private void OnEnable()
+    {
+        playerControls.Game.Enable();
+    }
+
+    private void OnDisable()
+    {
+        playerControls.Game.Disable();
     }
 
     // Update is called once per frame
@@ -33,39 +54,65 @@ public class PlayerSpinAttack : MonoBehaviour
     {
         //Detects whether the attack button was pressed and the calls SpinAttack 
         //The shield has to be off
-        if (Input .GetButtonDown("Fire2") && GetComponent<PlayerShield>().isShieldOn == false && GetComponent<KnockBackEffect>().isKnockedBack == false)
+        /*if (Input .GetButtonDown("Fire2") && GetComponent<PlayerShield>().isShieldOn == false && GetComponent<KnockBackEffect>().isKnockedBack == false
+            && canAttack)
         {
             StartCoroutine(SpinAttack());
+        }*/
+        if (canAttack == false)
+        {
+            CoolDownCounter();
+        }
+    }
+
+    //Makes it so that the player can only attack again once enough time hs elapsed
+    private void CoolDownCounter()
+    {
+        //Increses the counter by the amount of time elapsed
+        coolDownTimer += Time.deltaTime;
+        if (coolDownTimer >= coolDownTime)
+        {
+            //Enables the player's attack
+            canAttack = true;
         }
     }
 
     private IEnumerator SpinAttack()
     {
-        //Sets the player's veloctiy to 0
-        rigidBody.velocity = new Vector2(rigidBody.velocity.x, 0);
-        
-        //Detects any enemies inside the attack range
-        Collider2D[] hitEnemies = Physics2D.OverlapAreaAll(spinPoint1.position, spinPoint2.position, enemyLayers);
-
-        //Calls the TakeDamage sub-routine in each of the attacked players' PlayerHealth Script
-        foreach (Collider2D enemy in hitEnemies)
+        if(GetComponent<PlayerShield>().isShieldOn == false && GetComponent<KnockBackEffect>().isKnockedBack == false
+            && canAttack)
         {
-            if (enemy != gameObject)
-            {
-                enemy.GetComponent<PlayerHealth>().TakeDamage(spinDamage, gameObject, knockForceX, knockForceY);
-            }
-        }
+            //Sets the player's veloctiy to 0
+            rigidBody.velocity = new Vector2(rigidBody.velocity.x, 0);
+        
+            //Detects any enemies inside the attack range
+            Collider2D[] hitEnemies = Physics2D.OverlapAreaAll(spinPoint1.position, spinPoint2.position, enemyLayers);
 
-        //Animations begin
-        //Not an actual animation so all of the follwoing is needed
-        attackRectangle.enabled = true;
-        transform.rotation = Quaternion.Euler(0, 0, 0);
-        animator.SetTrigger("Spin");
-        yield return new WaitForSeconds(0.05f);
-        transform.rotation = Quaternion.Euler(0, 180, 0);
-        animator.SetTrigger("Spin");
-        yield return new WaitForSeconds(0.15f);
-        attackRectangle.enabled = false;
+            //Calls the TakeDamage sub-routine in each of the attacked players' PlayerHealth Script
+            foreach (Collider2D enemy in hitEnemies)
+            {
+                if (enemy != gameObject)
+                {
+                    enemy.GetComponent<PlayerHealth>().TakeDamage(spinDamage, gameObject, knockForceX, knockForceY, knockBackTime);
+                }
+            }
+
+            //Starts a cool down timer and sets the variables used to the correct values.
+            canAttack = false;
+            coolDownTimer = 0;
+            CoolDownCounter();
+
+            //Animations begin
+            //Not an actual animation so all of the follwoing is needed
+            attackRectangle.enabled = true;
+            transform.rotation = Quaternion.Euler(0, 0, 0);
+            animator.SetTrigger("Spin");
+            yield return new WaitForSeconds(0.05f);
+            transform.rotation = Quaternion.Euler(0, 180, 0);
+            animator.SetTrigger("Spin");
+            yield return new WaitForSeconds(0.15f);
+            attackRectangle.enabled = false;
+        }
     }
 
     //Draws out the player's attack range

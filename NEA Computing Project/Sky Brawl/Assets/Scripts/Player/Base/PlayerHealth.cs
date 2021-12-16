@@ -40,7 +40,7 @@ public class PlayerHealth : MonoBehaviour
     }
 
     //Takes care of reducing player health when attacker
-    public void TakeDamage (int damageDealt, GameObject attacker, float knockForceX, float knockForceY)
+    public void TakeDamage (int damageDealt, GameObject attacker, float knockForceX, float knockForceY, float knocBackTime)
     {
         //Only take damage is the player's shield is off, they didn't attack themsleves and they are not dead
         if (shield.isShieldOn == false && gameObject != attacker && isDead == false)
@@ -55,7 +55,7 @@ public class PlayerHealth : MonoBehaviour
             if (knockForceX !=0  && knockForceY != 0)
             {
                 //Performs a knockback effect on the player
-                GetComponent<KnockBackEffect>().KnockBackCharacter(attacker, knockForceX, knockForceY);
+                GetComponent<KnockBackEffect>().KnockBackCharacter(attacker, knockForceX, knockForceY, knocBackTime);
             }
             //Plays the hurt animation
             animator.SetTrigger("Hurt");

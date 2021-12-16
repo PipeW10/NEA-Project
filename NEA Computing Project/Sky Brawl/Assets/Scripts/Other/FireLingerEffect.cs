@@ -47,7 +47,7 @@ public class FireLingerEffect : MonoBehaviour
             //Makes sure the shooter isn't damaged
             if (enemy.gameObject != shooter)
             {
-                enemy.GetComponent<PlayerHealth>().TakeDamage(fireDamage, gameObject, 0, 0);
+                enemy.GetComponent<PlayerHealth>().TakeDamage(fireDamage, gameObject, 0, 0, 0);
                 //Tick timer is then set to 0
                 tickTimer = 0;
             }

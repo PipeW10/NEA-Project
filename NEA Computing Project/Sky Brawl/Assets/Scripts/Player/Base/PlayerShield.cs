@@ -8,6 +8,8 @@ public class PlayerShield : MonoBehaviour
     private float shieldConstant;
     private SpriteRenderer sprite;
     private MonoBehaviour playerMovement;
+    private MasterControls playerControls;
+
     [Header("Shield Variables")]
     [SerializeField] private float shieldMaxTime;  
     [SerializeField] private float shieldMaxHealth;
@@ -22,13 +24,32 @@ public class PlayerShield : MonoBehaviour
         shieldConstant = shieldMaxTime * shieldMaxHealth;
         //Sets the shield timer and health to the values they need to be at the start of the match
         shieldTimer = shieldMaxTime;
+
+       
+    }
+
+    private void Awake()
+    {
+        playerControls = new MasterControls();
+        playerControls.Game.Shield.performed += ctx => ShieldOn();
+        playerControls.Game.Shield.canceled += ctx => ShieldOff();
+    }
+
+    private void OnEnable()
+    {
+        playerControls.Game.Enable();
+    }
+
+    private void OnDisable()
+    {
+        playerControls.Game.Disable();
     }
 
     // Update is called once per frame
     private void Update()
     {
 
-        //If the shield button is held down and the shield is currently off and the timer hasn't surpased the max time allowed, ShieldOn is called
+       /* //If the shield button is held down and the shield is currently off and the timer hasn't surpased the max time allowed, ShieldOn is called
         if (Input.GetButton("Shield") && isShieldOn == false 
             && GetComponent<KnockBackEffect>().isKnockedBack == false 
             && shieldTimer > 0)
@@ -40,7 +61,7 @@ public class PlayerShield : MonoBehaviour
         if (Input.GetButtonUp("Shield"))
         {
             ShieldOff();
-        }
+        }*/
 
         //If the shield is on, the shield degeneration subroutine is called
         if(isShieldOn)
@@ -83,11 +104,15 @@ public class PlayerShield : MonoBehaviour
     //Attacks are disbaled on the attack scripts
     private void ShieldOn()
     {
-        isShieldOn = true;
-        //Changes the player's colour to blue
-        sprite.color = Color.blue;
-        //Disables player movement
-        playerMovement.enabled = false;
+        if (isShieldOn == false && GetComponent<KnockBackEffect>().isKnockedBack == false
+            && shieldTimer > 0)
+        {
+            isShieldOn = true;
+            //Changes the player's colour to blue
+            sprite.color = Color.blue;
+            //Disables player movement
+            playerMovement.enabled = false;
+        }
     }
 
     //Enables movement and stops shield animations

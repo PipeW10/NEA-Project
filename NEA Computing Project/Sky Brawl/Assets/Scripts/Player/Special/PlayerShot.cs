@@ -4,6 +4,12 @@ public class PlayerShot : MonoBehaviour
 {
     private Animator animator;
     private Rigidbody2D rigidBody;
+    private MasterControls playerControls;
+    private bool canAttack;
+    private float coolDownTimer;
+
+    [Header("Player Variables")]
+    [SerializeField] private float coolDownTime;
 
     [Header("Player Links")]
     [SerializeField] private Transform firePoint;
@@ -15,6 +21,23 @@ public class PlayerShot : MonoBehaviour
         //Sets the variables rigidBody and animator to the character's Rigibody2D and Animator Components in order to easily access variables
         animator = GetComponent<Animator>();
         rigidBody = GetComponent<Rigidbody2D>();
+        canAttack = true;
+    }
+
+    private void Awake()
+    {
+        playerControls = new MasterControls();
+        playerControls.Game.Fire1.performed += ctx => FireShot();
+    }
+
+    private void OnEnable()
+    {
+        playerControls.Game.Enable();
+    }
+
+    private void OnDisable()
+    {
+        playerControls.Game.Disable();
     }
 
     // Update is called once per frame
@@ -22,27 +45,52 @@ public class PlayerShot : MonoBehaviour
     {
         //Detects whether the attack button was pressed and the calls Shot Attack 
         //The shield has to be off
-        if (Input.GetButtonDown("Fire1") && GetComponent<PlayerShield>().isShieldOn == false 
-            && GetComponent<KnockBackEffect>().isKnockedBack == false && !Input.GetButton("Jump"))
+        /*if (Input.GetButtonDown("Fire1") && GetComponent<PlayerShield>().isShieldOn == false 
+            && GetComponent<KnockBackEffect>().isKnockedBack == false && !Input.GetButton("Jump")
+            && canAttack)
         {
             FireShot();
+        }*/
+        if (canAttack == false)
+        {
+            CoolDownCounter();
+        }
+    }
+
+    //Makes it so that the player can only attack again once enough time hs elapsed
+    private void CoolDownCounter()
+    {
+        //Increses the counter by the amount of time elapsed
+        coolDownTimer += Time.deltaTime;
+        if (coolDownTimer >= coolDownTime)
+        {
+            //Enables the player's attack
+            canAttack = true;
         }
     }
 
     private void FireShot()
     {
-        //Triggers the attack animation
-        animator.SetTrigger("Attack");
-
-        //Sets the player's Y velocity to 0 if they are falling so air attacks feel better
-        if (rigidBody.velocity.y < 0)
+        if(GetComponent<PlayerShield>().isShieldOn == false
+            && GetComponent<KnockBackEffect>().isKnockedBack == false && canAttack)
         {
-            rigidBody.velocity = new Vector2(rigidBody.velocity.x, 0);
-        }
+            //Triggers the attack animation
+            animator.SetTrigger("Attack");
 
-        //Creates a bullet clone from the fire point
-        GameObject projectile = Instantiate(projectilePrefab, firePoint.position, firePoint.rotation);
-        //Shooter variable in the Arrow script is set to this player
-        projectile.GetComponent<Projectile>().shooter = gameObject;
+            //Sets the player's Y velocity to 0 if they are falling so air attacks feel better
+            if (rigidBody.velocity.y < 0)
+            {
+                rigidBody.velocity = new Vector2(rigidBody.velocity.x, 0);
+            }
+
+            //Creates a bullet clone from the fire point
+            GameObject projectile = Instantiate(projectilePrefab, firePoint.position, firePoint.rotation);
+            //Shooter variable in the Arrow script is set to this player
+            projectile.GetComponent<Projectile>().shooter = gameObject;
+            //Starts a cool down timer and sets the variables used to the correct values.
+            canAttack = false;
+            coolDownTimer = 0;
+            CoolDownCounter();
+        }
     }
 }
