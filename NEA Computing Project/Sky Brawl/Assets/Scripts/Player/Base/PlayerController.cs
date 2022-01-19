@@ -55,6 +55,11 @@ public class PlayerController : MonoBehaviour
 
         CheckWallSlide();
 
+        if (jumpCount != 0)
+        {
+            CheckForGround();
+        }
+
     }
 
     //FixedUpdate is called 50 times a second, no matter the framerate

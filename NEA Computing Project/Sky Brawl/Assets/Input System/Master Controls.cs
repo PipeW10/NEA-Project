@@ -376,7 +376,7 @@ public class @MasterControls : IInputActionCollection, IDisposable
                 {
                     ""name"": ""modifier"",
                     ""id"": ""63f3603e-6b1e-457f-93db-62ae6b516f84"",
-                    ""path"": ""<Keyboard>/p"",
+                    ""path"": ""<Keyboard>/i"",
                     ""interactions"": """",
                     ""processors"": """",
                     ""groups"": ""Keyboard and Mouse"",
@@ -561,6 +561,63 @@ public class @MasterControls : IInputActionCollection, IDisposable
                     ""isPartOfComposite"": true
                 }
             ]
+        },
+        {
+            ""name"": ""Selection"",
+            ""id"": ""62945370-872e-4722-83f8-2dcf3aabb0f7"",
+            ""actions"": [
+                {
+                    ""name"": ""Click"",
+                    ""type"": ""Button"",
+                    ""id"": ""25efd0fc-05de-4239-a436-405137d1c273"",
+                    ""expectedControlType"": ""Button"",
+                    ""processors"": """",
+                    ""interactions"": """"
+                },
+                {
+                    ""name"": ""Drag"",
+                    ""type"": ""Value"",
+                    ""id"": ""10c52c9e-631d-45a3-a699-9af3613967b4"",
+                    ""expectedControlType"": ""Vector2"",
+                    ""processors"": """",
+                    ""interactions"": """"
+                }
+            ],
+            ""bindings"": [
+                {
+                    ""name"": """",
+                    ""id"": ""77b27a15-b692-4854-8f18-2b98895477be"",
+                    ""path"": ""<Mouse>/leftButton"",
+                    ""interactions"": """",
+                    ""processors"": """",
+                    ""groups"": ""Keyboard and Mouse"",
+                    ""action"": ""Click"",
+                    ""isComposite"": false,
+                    ""isPartOfComposite"": false
+                },
+                {
+                    ""name"": """",
+                    ""id"": ""46746f38-37f2-4ffb-88c8-124ccc475029"",
+                    ""path"": ""<XInputController>/buttonSouth"",
+                    ""interactions"": """",
+                    ""processors"": """",
+                    ""groups"": ""Xbox"",
+                    ""action"": ""Click"",
+                    ""isComposite"": false,
+                    ""isPartOfComposite"": false
+                },
+                {
+                    ""name"": """",
+                    ""id"": ""19b33025-a5a0-4e4e-a837-5ec79473122b"",
+                    ""path"": ""<Mouse>/delta"",
+                    ""interactions"": ""Press"",
+                    ""processors"": """",
+                    ""groups"": """",
+                    ""action"": ""Drag"",
+                    ""isComposite"": false,
+                    ""isPartOfComposite"": false
+                }
+            ]
         }
     ],
     ""controlSchemes"": [
@@ -613,6 +670,10 @@ public class @MasterControls : IInputActionCollection, IDisposable
         m_Game_XMovement = m_Game.FindAction("X Movement", throwIfNotFound: true);
         m_Game_Duck = m_Game.FindAction("Duck", throwIfNotFound: true);
         m_Game_UpAttack = m_Game.FindAction("Up Attack", throwIfNotFound: true);
+        // Selection
+        m_Selection = asset.FindActionMap("Selection", throwIfNotFound: true);
+        m_Selection_Click = m_Selection.FindAction("Click", throwIfNotFound: true);
+        m_Selection_Drag = m_Selection.FindAction("Drag", throwIfNotFound: true);
     }
 
     public void Dispose()
@@ -739,6 +800,47 @@ public class @MasterControls : IInputActionCollection, IDisposable
         }
     }
     public GameActions @Game => new GameActions(this);
+
+    // Selection
+    private readonly InputActionMap m_Selection;
+    private ISelectionActions m_SelectionActionsCallbackInterface;
+    private readonly InputAction m_Selection_Click;
+    private readonly InputAction m_Selection_Drag;
+    public struct SelectionActions
+    {
+        private @MasterControls m_Wrapper;
+        public SelectionActions(@MasterControls wrapper) { m_Wrapper = wrapper; }
+        public InputAction @Click => m_Wrapper.m_Selection_Click;
+        public InputAction @Drag => m_Wrapper.m_Selection_Drag;
+        public InputActionMap Get() { return m_Wrapper.m_Selection; }
+        public void Enable() { Get().Enable(); }
+        public void Disable() { Get().Disable(); }
+        public bool enabled => Get().enabled;
+        public static implicit operator InputActionMap(SelectionActions set) { return set.Get(); }
+        public void SetCallbacks(ISelectionActions instance)
+        {
+            if (m_Wrapper.m_SelectionActionsCallbackInterface != null)
+            {
+                @Click.started -= m_Wrapper.m_SelectionActionsCallbackInterface.OnClick;
+                @Click.performed -= m_Wrapper.m_SelectionActionsCallbackInterface.OnClick;
+                @Click.canceled -= m_Wrapper.m_SelectionActionsCallbackInterface.OnClick;
+                @Drag.started -= m_Wrapper.m_SelectionActionsCallbackInterface.OnDrag;
+                @Drag.performed -= m_Wrapper.m_SelectionActionsCallbackInterface.OnDrag;
+                @Drag.canceled -= m_Wrapper.m_SelectionActionsCallbackInterface.OnDrag;
+            }
+            m_Wrapper.m_SelectionActionsCallbackInterface = instance;
+            if (instance != null)
+            {
+                @Click.started += instance.OnClick;
+                @Click.performed += instance.OnClick;
+                @Click.canceled += instance.OnClick;
+                @Drag.started += instance.OnDrag;
+                @Drag.performed += instance.OnDrag;
+                @Drag.canceled += instance.OnDrag;
+            }
+        }
+    }
+    public SelectionActions @Selection => new SelectionActions(this);
     private int m_KeyboardandMouseSchemeIndex = -1;
     public InputControlScheme KeyboardandMouseScheme
     {
@@ -775,5 +877,10 @@ public class @MasterControls : IInputActionCollection, IDisposable
         void OnXMovement(InputAction.CallbackContext context);
         void OnDuck(InputAction.CallbackContext context);
         void OnUpAttack(InputAction.CallbackContext context);
+    }
+    public interface ISelectionActions
+    {
+        void OnClick(InputAction.CallbackContext context);
+        void OnDrag(InputAction.CallbackContext context);
     }
 }

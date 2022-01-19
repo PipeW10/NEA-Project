@@ -363,7 +363,7 @@
                 {
                     "name": "modifier",
                     "id": "63f3603e-6b1e-457f-93db-62ae6b516f84",
-                    "path": "<Keyboard>/p",
+                    "path": "<Keyboard>/i",
                     "interactions": "",
                     "processors": "",
                     "groups": "Keyboard and Mouse",
@@ -546,6 +546,63 @@
                     "action": "Up Attack",
                     "isComposite": false,
                     "isPartOfComposite": true
+                }
+            ]
+        },
+        {
+            "name": "Selection",
+            "id": "62945370-872e-4722-83f8-2dcf3aabb0f7",
+            "actions": [
+                {
+                    "name": "Click",
+                    "type": "Button",
+                    "id": "25efd0fc-05de-4239-a436-405137d1c273",
+                    "expectedControlType": "Button",
+                    "processors": "",
+                    "interactions": ""
+                },
+                {
+                    "name": "Drag",
+                    "type": "Value",
+                    "id": "10c52c9e-631d-45a3-a699-9af3613967b4",
+                    "expectedControlType": "Vector2",
+                    "processors": "",
+                    "interactions": ""
+                }
+            ],
+            "bindings": [
+                {
+                    "name": "",
+                    "id": "77b27a15-b692-4854-8f18-2b98895477be",
+                    "path": "<Mouse>/leftButton",
+                    "interactions": "",
+                    "processors": "",
+                    "groups": "Keyboard and Mouse",
+                    "action": "Click",
+                    "isComposite": false,
+                    "isPartOfComposite": false
+                },
+                {
+                    "name": "",
+                    "id": "46746f38-37f2-4ffb-88c8-124ccc475029",
+                    "path": "<XInputController>/buttonSouth",
+                    "interactions": "",
+                    "processors": "",
+                    "groups": "Xbox",
+                    "action": "Click",
+                    "isComposite": false,
+                    "isPartOfComposite": false
+                },
+                {
+                    "name": "",
+                    "id": "19b33025-a5a0-4e4e-a837-5ec79473122b",
+                    "path": "<Mouse>/delta",
+                    "interactions": "Press",
+                    "processors": "",
+                    "groups": "",
+                    "action": "Drag",
+                    "isComposite": false,
+                    "isPartOfComposite": false
                 }
             ]
         }
