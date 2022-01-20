@@ -21,12 +21,6 @@ public class PlayerController : MonoBehaviour
     [SerializeField] private LayerMask wallJumpLayer;
     [SerializeField] private Transform wallCheck, groundCheck;
 
-    private void Awake()
-    {
-        playerControls = new MasterControls();
-        playerControls.Game.Jump.performed += ctx => PlayerJump();
-        playerControls.Game.Duck.performed += ctx => StartCoroutine(PhaseThroughPlatform());
-    }
 
     // Start is called before the first frame update
     void Start()
@@ -37,13 +31,27 @@ public class PlayerController : MonoBehaviour
 
     }
 
+    //First Method to be called in the script
+    private void Awake()
+    {
+        //Sets the playercontrols variable to a reference for the master controls script
+        playerControls = new MasterControls();
+        //Links Inputs from the Game ipnut action map to specified sub-routines so action may be performed
+        playerControls.Game.Jump.performed += ctx => PlayerJump();
+        playerControls.Game.Duck.performed += ctx => StartCoroutine(PhaseThroughPlatform());
+    }
+
+    //Called after awake or whenever the script is enabled
     private void OnEnable()
     {
+        //Enables the Game Ipnut action map so this script can detect certain inputs
         playerControls.Game.Enable();
     }
 
+    //Called whenever the script is disabled
     private void OnDisable()
     {
+        //Disables the Gampe input action map
         playerControls.Game.Disable();
     }
 
@@ -53,8 +61,10 @@ public class PlayerController : MonoBehaviour
         //Calls Flip Player
         FlipPlayer();
 
+        //Calls the CheckWallSlide method
         CheckWallSlide();
 
+        //Checks for ground if the player is in the air
         if (jumpCount != 0)
         {
             CheckForGround();

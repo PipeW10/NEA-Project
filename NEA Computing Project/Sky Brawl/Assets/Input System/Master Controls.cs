@@ -598,7 +598,7 @@ public class @MasterControls : IInputActionCollection, IDisposable
                 {
                     ""name"": """",
                     ""id"": ""46746f38-37f2-4ffb-88c8-124ccc475029"",
-                    ""path"": ""<XInputController>/buttonSouth"",
+                    ""path"": ""<Gamepad>/buttonSouth"",
                     ""interactions"": """",
                     ""processors"": """",
                     ""groups"": ""Xbox"",

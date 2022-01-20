@@ -24,19 +24,26 @@ public class PlayerShot : MonoBehaviour
         canAttack = true;
     }
 
+    //First Method to be called in the script
     private void Awake()
     {
+        //Sets the playercontrols variable to a reference for the master controls script
         playerControls = new MasterControls();
+        //Links Inputs from the Game ipnut action map to specified sub-routines so action may be performed
         playerControls.Game.Fire1.performed += ctx => FireShot();
     }
 
+    //Called after awake or whenever the script is enabled
     private void OnEnable()
     {
+        //Enables the Game Ipnut action map so this script can detect certain inputs
         playerControls.Game.Enable();
     }
 
+    //Called whenever the script is disabled
     private void OnDisable()
     {
+        //Disables the Gampe input action map
         playerControls.Game.Disable();
     }
 
