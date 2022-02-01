@@ -4,6 +4,7 @@ public class Button : MonoBehaviour
 {
     [Header("Button Variables")]
     [SerializeField] private GameObject character;
+    [SerializeField] private GameObject face;
     [SerializeField] private CharacterSelection selection;
     private int playerNumber;
 
@@ -18,7 +19,7 @@ public class Button : MonoBehaviour
             //Sets the player number to the tokenNumber on the token
             playerNumber = token.tokenNumber;
             //Calls the setPlayerCharacter method in the CharacterSelection script
-            selection.SetPlayerCharacter(playerNumber, character);
+            selection.SetPlayerCharacter(playerNumber, character, face);
         }
     }
 

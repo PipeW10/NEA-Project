@@ -3,13 +3,12 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-public class PlayerSpinAttack : MonoBehaviour
+public class PlayerSpinAttack : Player
 {
     private Animator animator;
     private Rigidbody2D rigidBody;
     private MasterControls playerControls;
     private bool canAttack;
-    private float coolDownTimer;
 
     [Header("Player Variables")]
     [SerializeField] private int spinDamage;
@@ -69,23 +68,11 @@ public class PlayerSpinAttack : MonoBehaviour
         }*/
         if (canAttack == false)
         {
-            CoolDownCounter();
+            canAttack = CoolDownCounter(coolDownTime);
         }
     }
 
-    //Makes it so that the player can only attack again once enough time hs elapsed
-    private void CoolDownCounter()
-    {
-        //Increses the counter by the amount of time elapsed
-        coolDownTimer += Time.deltaTime;
-        if (coolDownTimer >= coolDownTime)
-        {
-            //Enables the player's attack
-            canAttack = true;
-        }
-    }
-
-    private IEnumerator SpinAttack()
+    public IEnumerator SpinAttack()
     {
         if(GetComponent<PlayerShield>().isShieldOn == false && GetComponent<KnockBackEffect>().isKnockedBack == false
             && canAttack)
@@ -108,7 +95,7 @@ public class PlayerSpinAttack : MonoBehaviour
             //Starts a cool down timer and sets the variables used to the correct values.
             canAttack = false;
             coolDownTimer = 0;
-            CoolDownCounter();
+            canAttack = CoolDownCounter(coolDownTime);
 
             //Animations begin
             //Not an actual animation so all of the follwoing is needed

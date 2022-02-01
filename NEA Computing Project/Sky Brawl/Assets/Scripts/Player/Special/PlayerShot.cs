@@ -1,12 +1,11 @@
 using UnityEngine;
 
-public class PlayerShot : MonoBehaviour
+public class PlayerShot : Player
 {
     private Animator animator;
     private Rigidbody2D rigidBody;
     private MasterControls playerControls;
     private bool canAttack;
-    private float coolDownTimer;
 
     [Header("Player Variables")]
     [SerializeField] private float coolDownTime;
@@ -60,23 +59,11 @@ public class PlayerShot : MonoBehaviour
         }*/
         if (canAttack == false)
         {
-            CoolDownCounter();
+            canAttack = CoolDownCounter(coolDownTime);
         }
     }
 
-    //Makes it so that the player can only attack again once enough time hs elapsed
-    private void CoolDownCounter()
-    {
-        //Increses the counter by the amount of time elapsed
-        coolDownTimer += Time.deltaTime;
-        if (coolDownTimer >= coolDownTime)
-        {
-            //Enables the player's attack
-            canAttack = true;
-        }
-    }
-
-    private void FireShot()
+    public void FireShot()
     {
         if(GetComponent<PlayerShield>().isShieldOn == false
             && GetComponent<KnockBackEffect>().isKnockedBack == false && canAttack)
@@ -97,7 +84,7 @@ public class PlayerShot : MonoBehaviour
             //Starts a cool down timer and sets the variables used to the correct values.
             canAttack = false;
             coolDownTimer = 0;
-            CoolDownCounter();
+            canAttack = CoolDownCounter(coolDownTime);
         }
     }
 }

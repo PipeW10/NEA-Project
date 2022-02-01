@@ -6,7 +6,7 @@ public class PlayerController : MonoBehaviour
     private MasterControls playerControls;
     private Rigidbody2D rigidBody;
     private Animator animator;
-    //varibles needed throughout the script. Privated as none need to be accessed elsewhere
+    //Varibles needed throughout the script. Public as they need to be accessed elsewhere
     private float xMovement;
     [HideInInspector] public int jumpCount = 0;
     [HideInInspector] public bool isWallSliding, isTouchingWall, isGrounded;
@@ -72,6 +72,11 @@ public class PlayerController : MonoBehaviour
 
     }
 
+    public void Move(Vector2 moveVector)
+    {
+        xMovement = moveVector.x;
+    }
+
     //FixedUpdate is called 50 times a second, no matter the framerate
     private void FixedUpdate()
     {
@@ -79,6 +84,7 @@ public class PlayerController : MonoBehaviour
         //This is done in FixedUpdate Instead of Upadate to make the movement smoother
         xMovement = playerControls.Game.XMovement.ReadValue<float>();
         transform.position += new Vector3(xMovement, 0, 0) * movementSpeed;
+        xMovement = 0;
         //Sets the animation paramter speed to the characters's X velocity in order to correctly play animations
         animator.SetFloat("Speed", Mathf.Abs(xMovement));
     }
@@ -86,7 +92,7 @@ public class PlayerController : MonoBehaviour
     //Turns the player's collider into a trigger so they are not affected by the platforms and can phase through them
     //Can still be hit by attacks
     //IEnumerator lets me wait between executing different lines
-    private IEnumerator PhaseThroughPlatform()
+    public IEnumerator PhaseThroughPlatform()
     {
         //Overlap circle makes a circle from a determied point and checks what is in it's radius
         //Checks to see if the player is on ground which can be phased through
@@ -143,7 +149,7 @@ public class PlayerController : MonoBehaviour
         }
     }
 
-    private void PlayerJump()
+    public void PlayerJump()
     {
         if (jumpCount < 2)
         {

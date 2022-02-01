@@ -1,20 +1,19 @@
 using UnityEngine;
 
-public class ArcherShot : MonoBehaviour
+public class ArcherShot : Player
 {
     private Animator animator;
     private Rigidbody2D rigidBody;
     private MasterControls playerControls;
     private bool canAttack;
-    private float coolDownTimer;
 
     [Header("Player Variables")]
     [SerializeField] private float coolDownTime;
 
     [Header("Player Links")]
     [SerializeField] private Transform firePoint;
-    [SerializeField] private GameObject basicArrow;
-    [SerializeField] private GameObject stickyArrow;
+    [SerializeField] public GameObject basicArrow;
+    [SerializeField] public GameObject stickyArrow;
 
     // Start is called before the first frame update
     void Start()
@@ -69,24 +68,12 @@ public class ArcherShot : MonoBehaviour
         }*/
         if (canAttack == false)
         {
-            CoolDownCounter();
-        }
-    }
-
-    //Makes it so that the player can only attack again once enough time hs elapsed
-    private void CoolDownCounter()
-    {
-        //Increses the counter by the amount of time elapsed
-        coolDownTimer += Time.deltaTime;
-        if (coolDownTimer >= coolDownTime)
-        {
-            //Enables the player's attack
-            canAttack = true;
+            canAttack = CoolDownCounter(coolDownTime);
         }
     }
 
     //Fire arrow creates the right arrow clone which is passed as a parameter
-    private void FireArrow(GameObject arrowToFire)
+    public void FireArrow(GameObject arrowToFire)
     {
         if(GetComponent<PlayerShield>().isShieldOn == false&& GetComponent<KnockBackEffect>().isKnockedBack == false && canAttack)
         {
@@ -106,7 +93,7 @@ public class ArcherShot : MonoBehaviour
             //Starts a cool down timer and sets the variables used to the correct values.
             canAttack = false;
             coolDownTimer = 0;
-            CoolDownCounter();
+            canAttack = CoolDownCounter(coolDownTime);
         }
     }
 }

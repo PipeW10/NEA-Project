@@ -109,7 +109,7 @@ public class PlayerShield : MonoBehaviour
 
     //Performs shield animations and disables movement
     //Attacks are disbaled on the attack scripts
-    private void ShieldOn()
+    public void ShieldOn()
     {
         if (isShieldOn == false && GetComponent<KnockBackEffect>().isKnockedBack == false
             && shieldTimer > 0)
@@ -124,7 +124,7 @@ public class PlayerShield : MonoBehaviour
 
     //Enables movement and stops shield animations
     //Attacks are enabled on the attack scripts
-    private void ShieldOff()
+    public void ShieldOff()
     {
         isShieldOn = false;
         //Changes the player's colour back to white

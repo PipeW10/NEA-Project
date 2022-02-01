@@ -1,12 +1,11 @@
 using UnityEngine;
 
-public class PlayerMelee : MonoBehaviour
+public class PlayerMelee : Player
 {
     private Animator animator;
     private Rigidbody2D rigidBody;
     private MasterControls playerControls;
     private bool canAttack;
-    private float coolDownTimer;
 
     [Header("Player Variables")]
     [SerializeField] private float meleeRange;
@@ -64,24 +63,12 @@ public class PlayerMelee : MonoBehaviour
         }*/
         if (canAttack == false)
         {
-            CoolDownCounter();
-        }
-    }
-
-    //Makes it so that the player can only attack again once enough time hs elapsed
-    private void CoolDownCounter()
-    {
-        //Increses the counter by the amount of time elapsed
-        coolDownTimer += Time.deltaTime;
-        if (coolDownTimer >= coolDownTime)
-        {
-            //Enables the player's attack
-            canAttack = true;
+            canAttack = CoolDownCounter(coolDownTime);
         }
     }
 
     //Performs the attack animation and detects what the attack collided with
-    private void MeleeAttack()
+    public void MeleeAttack()
     {
         if (GetComponent<PlayerShield>().isShieldOn == false
             && GetComponent<KnockBackEffect>().isKnockedBack == false && canAttack)
@@ -109,7 +96,7 @@ public class PlayerMelee : MonoBehaviour
             //Starts a cool down timer and sets the variables used to the correct values.
             canAttack = false;
             coolDownTimer = 0;
-            CoolDownCounter();
+            canAttack = CoolDownCounter(coolDownTime);
         }
     }
 

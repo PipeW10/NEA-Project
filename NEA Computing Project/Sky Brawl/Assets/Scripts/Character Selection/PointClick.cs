@@ -7,6 +7,8 @@ public class PointClick : MonoBehaviour
     private Mouse mouse;
     private InputAction drag, click;
     private GameObject currentToken;
+    private bool mouseOnReady;
+    [SerializeField] ReadyButton readyButton;
 
     //Called after awake or whenever the script is enabled
     private void OnEnable()
@@ -36,6 +38,7 @@ public class PointClick : MonoBehaviour
         drag = selectionMap.FindAction("Drag", true);
         //Sets the mouse variable to the mouse currently in use
         mouse = Mouse.current;
+        mouseOnReady = false;
     }
 
     //Is called whenever the click action is performed
@@ -44,15 +47,21 @@ public class PointClick : MonoBehaviour
         //Checks whether the mouse is direclty above a game object
         if (Physics2D.Raycast(Camera.main.ScreenToWorldPoint(mouse.position.ReadValue()), Vector2.zero))
         {
-           //Sets the token hit variable to whatever game object the mouse is above
-           GameObject tokenHit = Physics2D.Raycast(Camera.main.ScreenToWorldPoint(mouse.position.ReadValue()), Vector2.zero).collider.gameObject;
-            //Checks whether the token hit game object has a token script (Is a token)
-           if (tokenHit.GetComponent<Token>() != null)
+           //Sets the object hit variable to whatever game object the mouse is above
+           GameObject objectHit = Physics2D.Raycast(Camera.main.ScreenToWorldPoint(mouse.position.ReadValue()), Vector2.zero).collider.gameObject;
+           //Checks whether the object hit game object has a token script (Is a token)
+           if (objectHit.GetComponent<Token>() != null)
            {
                 //If so, sets currenToken to token hit 
-                currentToken = tokenHit;
+                currentToken = objectHit;
                 //and links the Drag method to the drag action
                 drag.performed += Drag;
+           }
+           //Else, checks whether the object was the ready button
+           else if(objectHit == readyButton.gameObject)
+           {
+                //Sets mouseOnReady to true
+                mouseOnReady = true;
            }
         }
     }
@@ -60,10 +69,20 @@ public class PointClick : MonoBehaviour
     //Called when the click action is canceled
     private void EndDrag(InputAction.CallbackContext context)
     {
-        //Sets currentToken to null
-        currentToken = null;
+        //If current token is not null
+        if (currentToken != null)
+        {
+            //Sets currentToken to null
+            currentToken = null;
+            drag.performed -= Drag;
+        }
+        //Else if the mouseOnReady variable is true
+        else if (mouseOnReady)
+        {
+            //Calls the loadMap method from the readyButton script
+            readyButton.LoadMap();
+        }
         //Un-links the drag method from the drag aciton
-        drag.performed -= Drag;
     }
 
     private void Drag(InputAction.CallbackContext context)
@@ -76,5 +95,4 @@ public class PointClick : MonoBehaviour
             currentToken.transform.position = new Vector2(mousePosition.x, mousePosition.y);
         }
     }
-
 }

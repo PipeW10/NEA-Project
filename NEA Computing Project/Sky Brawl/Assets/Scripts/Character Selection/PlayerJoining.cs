@@ -34,8 +34,6 @@ public class PlayerJoining : MonoBehaviour
         //If the input device is a mouse
         else
         {
-            //Destorys tis gameobject
-            Destroy(gameObject);
             Debug.Log("Mouse");
         }
     }

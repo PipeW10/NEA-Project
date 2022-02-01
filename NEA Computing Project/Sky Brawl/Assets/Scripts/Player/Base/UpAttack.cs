@@ -1,13 +1,13 @@
 using UnityEngine;
 
-public class UpAttack : MonoBehaviour
+public class UpAttack : Player
 {
     private Rigidbody2D rigidBody;
     private PlayerController controller;
     private MasterControls playerControls;
     private bool hasJumpAttacked;
     private bool canAttack;
-    private float coolDownTimer;
+    //private float coolDownTimer;
 
     [Header("Player Variables")]
     [SerializeField] private float jumpAttackForce;
@@ -22,7 +22,7 @@ public class UpAttack : MonoBehaviour
         //Sets the playercontrols variable to a reference for the master controls script
         playerControls = new MasterControls();
         //Links the UpAttack key to the JumpAttack procedure so it is called whenever the specific key is pressed
-        playerControls.Game.UpAttack.started += ctx => JumpAttack();
+        playerControls.Game.UpAttack.performed += ctx => JumpAttack();
     }
 
     //Called after awake or whenever the script is enabled
@@ -53,7 +53,7 @@ public class UpAttack : MonoBehaviour
     {
         if (canAttack == false)
         {
-            CoolDownCounter();
+            canAttack = CoolDownCounter(coolDownTime);
         }
 
         //Checks whether the player is performing an up attack and falling to change their color back to white
@@ -63,7 +63,7 @@ public class UpAttack : MonoBehaviour
         }
     }
 
-    //Makes it so that the player can only attack again once enough time hs elapsed
+    /*//Makes it so that the player can only attack again once enough time hs elapsed
     private void CoolDownCounter()
     {
         //Increses the counter by the amount of time elapsed
@@ -73,10 +73,10 @@ public class UpAttack : MonoBehaviour
             //Enables the player's attack
             canAttack = true;
         }
-    }
+    }*/
 
     //Performs the jump attack
-    private void JumpAttack()
+    public void JumpAttack()
     {
         if (canAttack && !hasJumpAttacked)
         {
@@ -92,7 +92,7 @@ public class UpAttack : MonoBehaviour
             //Starts a cool down timer and sets the variables used to the correct values.
             canAttack = false;
             coolDownTimer = 0;
-            CoolDownCounter();
+            canAttack = CoolDownCounter(coolDownTime);
         }
     }
 

@@ -8,15 +8,14 @@ public class CharacterSelection : MonoBehaviour
     private InputDevice player3Input;
     private InputDevice player4Input;
 
-    private GameObject player1Character;
-    private GameObject player2Character;
-    private GameObject player3Character;
-    private GameObject player4Character;
+    [SerializeField] private GameObject[] playerCharacters;
+    [SerializeField] private SelectionBox[] selectBoxes;
+    [SerializeField] private Token[] tokens;
+    [SerializeField] private ReadyButton readyButton;
+    
+    private int numberPlayers;
+    [SerializeField] private PlayerManager playerManager;
 
-    [SerializeField] private int numberPlayers;
-
-    [Header("Buttons")]
-    [SerializeField] Button archerButton;
 
     //First Method to be called in the script
     private void Awake()
@@ -25,52 +24,60 @@ public class CharacterSelection : MonoBehaviour
         numberPlayers = 0;
     }
 
-    //Called from the button script and links the character chosen to the specified player
-    public void SetPlayerCharacter(int playerNumber, GameObject character)
+    //Checks whether all players are ready
+    private void PlayersReady()
     {
-        //Switch Case branch with the playerNumber passed as the switch
-        switch (playerNumber)
+        //allReady used as a flag
+        bool allReady = true;
+        //Loops through all players checking whether they have selected a character
+        for(int i = 0; i < numberPlayers; i++)
         {
-            case 1:
-                player1Character = character;
-                break;
-            case 2:
-                player2Character = character;
-                break;
-            case 3:
-                player3Character = character;
-                break;
-            case 4:
-                player4Character = character;
-                break;
-            default:
-                Debug.Log("Fail character");
-                break;
+            if(playerCharacters [i] == null)
+            {
+                //Sets allReady to false if they haven't
+                allReady = false;
+            }
+        }
+
+        //If all players are ready the ready button is displayed
+        if (allReady && numberPlayers > 0)
+        {
+            readyButton.gameObject.SetActive(true);
+        }
+        else if (readyButton.gameObject.activeSelf)
+        {
+            readyButton.gameObject.SetActive(false);
+        }
+    }
+
+    //Called from the button script and links the character chosen to the specified player
+    public void SetPlayerCharacter(int playerNumber, GameObject character, GameObject choiceFace)
+    {
+        //Only does this if the player is active 
+        if(playerNumber <= numberPlayers)
+        {
+            //Sets the playerCharcters array position linked to the player to the chosen character
+            playerCharacters[playerNumber - 1] = character;
+            //Calls the playersReady method
+            PlayersReady();
+            //Calls a method in the selectBoxes script linked to the player to display the character's face
+            selectBoxes[playerNumber - 1].DisplayChoice(choiceFace);
+            //Sets the character in the player manager script
+            playerManager.SetPlayerCharacter(playerNumber, character);
         }
     }
 
     //Called from the button script and un-links the character chosen to the specified player
     public void RemovePlayerCharacter(int playerNumber)
     {
-        //Switch Case branch with the playerNumber passed as the switch
-        switch (playerNumber)
-        {
-            case 1:
-                player1Character = null;
-                break;
-            case 2:
-                player2Character = null;
-                break;
-            case 3:
-                player3Character = null;
-                break;
-            case 4:
-                player4Character = null;
-                break;
-            default:
-                Debug.Log("Fail character");
-                break;
-        }
+        //Sets the playerCharcters array position linked to the player to null
+        playerCharacters[playerNumber - 1] = null;
+        //Calls the playersReady method
+        PlayersReady();
+        //Calls a method in the selectBoxes script linked to the player to stop displaying the character's face
+        selectBoxes[playerNumber - 1].RemoveChoice();
+        //Removes the character in the player manager script
+        playerManager.SetPlayerCharacter(playerNumber, null);
     }
 
     //Called from the PlayerJoining script and links an input device to the next available player
@@ -100,7 +107,15 @@ public class CharacterSelection : MonoBehaviour
                 numberPlayers -= 1;
                 break;
         }
+        //Activates the Selection box linked to the new player
+        selectBoxes[numberPlayers].gameObject.SetActive(true);
+        //Activates the token linked to the new player
+        tokens[numberPlayers].gameObject.SetActive(true);
         //Adds 1 to the number of players
         numberPlayers += 1;
+        //Sets the input device in the player Manager script
+        playerManager.SetInputDevice(input, numberPlayers);
+        //Calls the playersReady method
+        PlayersReady();
     }
 }

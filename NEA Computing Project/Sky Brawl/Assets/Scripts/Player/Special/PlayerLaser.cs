@@ -1,13 +1,12 @@
 using System.Collections;
 using UnityEngine;
 
-public class PlayerLaser : MonoBehaviour
+public class PlayerLaser : Player
 {
     private Animator animator;
     private Rigidbody2D rigidBody;
     private MasterControls playerControls;
     private bool canAttack;
-    private float coolDownTimer;
 
     [Header("Player Variables")]
     [SerializeField] private int rayDamage;
@@ -66,23 +65,11 @@ public class PlayerLaser : MonoBehaviour
         }*/
         if (canAttack == false)
         {
-            CoolDownCounter();
+            canAttack = CoolDownCounter(coolDownTime);
         }
     }
 
-    //Makes it so that the player can only attack again once enough time hs elapsed
-    private void CoolDownCounter()
-    {
-        //Increses the counter by the amount of time elapsed
-        coolDownTimer += Time.deltaTime;
-        if (coolDownTimer >= coolDownTime)
-        {
-            //Enables the player's attack
-            canAttack = true;
-        }
-    }
-
-    private IEnumerator FireLaser()
+    public IEnumerator FireLaser()
     {
         if (GetComponent<PlayerShield>().isShieldOn == false && GetComponent<KnockBackEffect>().isKnockedBack == false
             && canAttack)
@@ -121,7 +108,7 @@ public class PlayerLaser : MonoBehaviour
             //Starts a cool down timer and sets the variables used to the correct values.
             canAttack = false;
             coolDownTimer = 0;
-            CoolDownCounter();
+            canAttack = CoolDownCounter(coolDownTime);
 
             //Laser line enabled then disabled 0.02 seconds later
             laserLine.enabled = true;
