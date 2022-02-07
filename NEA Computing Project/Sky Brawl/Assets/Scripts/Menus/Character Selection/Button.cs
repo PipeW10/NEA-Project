@@ -8,7 +8,7 @@ public class Button : MonoBehaviour
     [SerializeField] private CharacterSelection selection;
     private int playerNumber;
 
-    //Called when a gamobject with a collider enter the box collider on the button
+    //Called when a gameobject with a collider enter the box collider on the button
     private void OnTriggerEnter2D(Collider2D collision)
     {
         //Sets the token which caused the trigger to the token variable

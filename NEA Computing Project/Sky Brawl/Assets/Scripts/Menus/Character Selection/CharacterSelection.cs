@@ -13,7 +13,7 @@ public class CharacterSelection : MonoBehaviour
     [SerializeField] private Token[] tokens;
     [SerializeField] private ReadyButton readyButton;
     
-    private int numberPlayers;
+    [HideInInspector] public int numberPlayers;
     [SerializeField] private PlayerManager playerManager;
 
 

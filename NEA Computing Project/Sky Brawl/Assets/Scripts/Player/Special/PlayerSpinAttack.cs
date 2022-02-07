@@ -7,7 +7,7 @@ public class PlayerSpinAttack : Player
 {
     private Animator animator;
     private Rigidbody2D rigidBody;
-    private MasterControls playerControls;
+    //   private MasterControls playerControls;
     private bool canAttack;
 
     [Header("Player Variables")]
@@ -37,23 +37,23 @@ public class PlayerSpinAttack : Player
     private void Awake()
     {
         //Sets the playercontrols variable to a reference for the master controls script
-        playerControls = new MasterControls();
+        //  playerControls = new MasterControls();
         //Links Inputs from the Game ipnut action map to specified sub-routines so action may be performed
-        playerControls.Game.Fire2.performed += ctx => StartCoroutine(SpinAttack());
+        //  playerControls.Game.Fire2.performed += ctx => StartCoroutine(SpinAttack());
     }
 
     //Called after awake or whenever the script is enabled
     private void OnEnable()
     {
         //Enables the Game Ipnut action map so this script can detect certain inputs
-        playerControls.Game.Enable();
+        //  playerControls.Game.Enable();
     }
 
     //Called whenever the script is disabled
     private void OnDisable()
     {
         //Disables the Gampe input action map
-        playerControls.Game.Disable();
+        // playerControls.Game.Disable();
     }
 
     // Update is called once per frame

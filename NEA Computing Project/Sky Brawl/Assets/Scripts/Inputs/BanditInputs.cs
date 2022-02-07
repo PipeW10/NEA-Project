@@ -3,7 +3,7 @@ using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.InputSystem;
 
-public class BanditInputs : CharacterInputs
+public class BanditInputs : MonoBehaviour
 {
     private PlayerMelee melee;
     private PlayerSpinAttack spinAttack;

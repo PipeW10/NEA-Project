@@ -3,7 +3,7 @@ using UnityEngine;
 
 public class PlayerController : MonoBehaviour
 {
-    private MasterControls playerControls;
+    // private MasterControls playerControls;
     private Rigidbody2D rigidBody;
     private Animator animator;
     //Varibles needed throughout the script. Public as they need to be accessed elsewhere
@@ -32,7 +32,7 @@ public class PlayerController : MonoBehaviour
     }
 
     //First Method to be called in the script
-    private void Awake()
+    /*private void Awake()
     {
         //Sets the playercontrols variable to a reference for the master controls script
         playerControls = new MasterControls();
@@ -53,7 +53,7 @@ public class PlayerController : MonoBehaviour
     {
         //Disables the Gampe input action map
         playerControls.Game.Disable();
-    }
+    }*/
 
     // Update is called once per frame
     void Update()
@@ -82,11 +82,11 @@ public class PlayerController : MonoBehaviour
     {
         //Moves the player in the x axis depending on the variable xMovement and the character's movement speed.
         //This is done in FixedUpdate Instead of Upadate to make the movement smoother
-        xMovement = playerControls.Game.XMovement.ReadValue<float>();
+        //xMovement = playerControls.Game.XMovement.ReadValue<float>();
         transform.position += new Vector3(xMovement, 0, 0) * movementSpeed;
-        xMovement = 0;
         //Sets the animation paramter speed to the characters's X velocity in order to correctly play animations
         animator.SetFloat("Speed", Mathf.Abs(xMovement));
+        xMovement = 0;
     }
 
     //Turns the player's collider into a trigger so they are not affected by the platforms and can phase through them

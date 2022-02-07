@@ -1,12 +1,8 @@
-using System;
-using System.Collections;
-using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.InputSystem;
 
 public class PlayerInputHandler : MonoBehaviour
 {
-    private PlayerManager playerManager;
     private PlayerInput playerInput;
     private InputDevice inputDevice;
     private GameObject character;
@@ -17,7 +13,7 @@ public class PlayerInputHandler : MonoBehaviour
 
     private void Awake()
     {
-        playerManager = FindObjectOfType<PlayerManager>();
+        playerInput = GetComponent<PlayerInput>();
         inputDevice = playerInput.devices[0];
         SpawnCharacter();
         SetCharacterInput();
@@ -38,7 +34,7 @@ public class PlayerInputHandler : MonoBehaviour
     {
         if (context.performed)
         {
-            characterInputs.Fire2();
+            characterInputs.Fire2(context);
         }
     }
     public void Jump(InputAction.CallbackContext context)
@@ -80,19 +76,7 @@ public class PlayerInputHandler : MonoBehaviour
 
     private void SetCharacterInput()
     {
-         string characterName = character.GetComponent<Player>().characterName;
-         if (characterName == "Archer")
-         {
-            characterInputs = character.GetComponent<ArcherInputs>();
-         }
-         else if (characterName == "Bandit")
-         {
-            characterInputs = character.GetComponent<BanditInputs>();
-         }
-        else if (characterName == "Alien")
-        {
-            characterInputs = character.GetComponent<AlienInputs>();
-        }
+         characterInputs = character.GetComponent<CharacterInputs>();
     }
 
     private void SpawnCharacter()

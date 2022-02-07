@@ -52,17 +52,6 @@
                 },
                 {
                     "name": "",
-                    "id": "80fe8b78-6b5f-4f60-b12e-e3a236378a80",
-                    "path": "",
-                    "interactions": "",
-                    "processors": "",
-                    "groups": "",
-                    "action": "Drag",
-                    "isComposite": false,
-                    "isPartOfComposite": false
-                },
-                {
-                    "name": "",
                     "id": "ac4e6b1a-3075-4cc2-a67c-293d569fe889",
                     "path": "<Mouse>/leftButton",
                     "interactions": "",

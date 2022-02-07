@@ -8,7 +8,7 @@ public class PlayerShield : MonoBehaviour
     private float shieldConstant;
     private SpriteRenderer sprite;
     private MonoBehaviour playerMovement;
-    private MasterControls playerControls;
+    //private MasterControls playerControls;
 
     [Header("Shield Variables")]
     [SerializeField] private float shieldMaxTime;  
@@ -32,24 +32,24 @@ public class PlayerShield : MonoBehaviour
     private void Awake()
     {
         //Sets the playercontrols variable to a reference for the master controls script
-        playerControls = new MasterControls();
+        //playerControls = new MasterControls();
         //Links Inputs from the Game ipnut action map to specified sub-routines so action may be performed
-        playerControls.Game.Shield.performed += ctx => ShieldOn();
-        playerControls.Game.Shield.canceled += ctx => ShieldOff();
+        //playerControls.Game.Shield.performed += ctx => ShieldOn();
+        //playerControls.Game.Shield.canceled += ctx => ShieldOff();
     }
 
     //Called after awake or whenever the script is enabled
     private void OnEnable()
     {
         //Enables the Game Ipnut action map so this script can detect certain inputs
-        playerControls.Game.Enable();
+        //playerControls.Game.Enable();
     }
 
     //Called whenever the script is disabled
     private void OnDisable()
     {
         //Disables the Gampe input action map
-        playerControls.Game.Disable();
+        //playerControls.Game.Disable();
     }
 
     // Update is called once per frame

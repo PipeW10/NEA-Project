@@ -1,6 +1,7 @@
 using UnityEngine.InputSystem;
+using UnityEngine;
 
-public class ArcherInputs : CharacterInputs
+public class ArcherInputs : MonoBehaviour
 {
     private ArcherShot archerShot;
 

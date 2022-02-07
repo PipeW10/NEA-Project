@@ -1,6 +1,7 @@
 using UnityEngine.InputSystem;
+using UnityEngine;
 
-public class AlienInputs : CharacterInputs 
+public class AlienInputs : MonoBehaviour
 {
     private PlayerLaser laser;
     private PlayerShot shot;

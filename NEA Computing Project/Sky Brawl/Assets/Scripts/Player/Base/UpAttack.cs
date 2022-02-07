@@ -4,7 +4,7 @@ public class UpAttack : Player
 {
     private Rigidbody2D rigidBody;
     private PlayerController controller;
-    private MasterControls playerControls;
+    // private MasterControls playerControls;
     private bool hasJumpAttacked;
     private bool canAttack;
     //private float coolDownTimer;
@@ -20,23 +20,23 @@ public class UpAttack : Player
     private void Awake()
     {
         //Sets the playercontrols variable to a reference for the master controls script
-        playerControls = new MasterControls();
+        // playerControls = new MasterControls();
         //Links the UpAttack key to the JumpAttack procedure so it is called whenever the specific key is pressed
-        playerControls.Game.UpAttack.performed += ctx => JumpAttack();
+        //  playerControls.Game.UpAttack.performed += ctx => JumpAttack();
     }
 
     //Called after awake or whenever the script is enabled
     private void OnEnable()
     {
         //Enables the Game Ipnut action map so this script can detect certain inputs
-        playerControls.Game.Enable();
+        // playerControls.Game.Enable();
     }
 
     //Called whenever the script is disabled
     private void OnDisable()
     {
         //Disables the Gampe input action map
-        playerControls.Game.Disable();
+        //  playerControls.Game.Disable();
     }
 
     // Start is called before the first frame update

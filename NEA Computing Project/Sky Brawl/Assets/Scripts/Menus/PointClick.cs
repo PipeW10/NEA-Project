@@ -3,7 +3,7 @@ using UnityEngine.InputSystem;
 
 public class PointClick : MonoBehaviour
 {
-    private MasterControls playerControls;
+    private PlayerControls playerControls;
     private Mouse mouse;
     private InputAction drag, click;
     private GameObject currentToken;
@@ -13,24 +13,24 @@ public class PointClick : MonoBehaviour
     //Called after awake or whenever the script is enabled
     private void OnEnable()
     {
-        //Enables the Selection Ipnut action map so this script can detect certain inputs
-        playerControls.Selection.Enable();
+        //Enables the Selection Input action map so this script can detect certain inputs
+        playerControls.MainMap.Enable();
     }
 
     //Called whenever the script is disabled
     private void OnDisable()
     {
         //Disables the Selection input action map
-        playerControls.Selection.Disable();
+        playerControls.MainMap.Disable();
     }
 
     //First Method to be called in the script
     private void Awake()
     {
         //Sets the playercontrols variable to a reference for the master controls script
-        playerControls = new MasterControls();
+        playerControls = new PlayerControls();
         //Creates a reference of the selection input action map
-        InputActionMap selectionMap = playerControls.Selection;
+        InputActionMap selectionMap = playerControls.MainMap;
         //Links Inputs from the selection input action map to specified sub-routines so action may be performed
         click = selectionMap.FindAction("Click", true);
         click.started += StartDrag;
@@ -50,7 +50,7 @@ public class PointClick : MonoBehaviour
            //Sets the object hit variable to whatever game object the mouse is above
            GameObject objectHit = Physics2D.Raycast(Camera.main.ScreenToWorldPoint(mouse.position.ReadValue()), Vector2.zero).collider.gameObject;
            //Checks whether the object hit game object has a token script (Is a token)
-           if (objectHit.GetComponent<Token>() != null)
+           if (objectHit.GetComponent<Token>() != null || objectHit.GetComponent<MapToken>() != null)
            {
                 //If so, sets currenToken to token hit 
                 currentToken = objectHit;
@@ -92,7 +92,7 @@ public class PointClick : MonoBehaviour
         {
             //Sets the position of the token to the position of the mouse
             Vector3 mousePosition = Camera.main.ScreenToWorldPoint(mouse.position.ReadValue());
-            currentToken.transform.position = new Vector2(mousePosition.x, mousePosition.y);
+            currentToken.transform.position = new Vector3(mousePosition.x, mousePosition.y, currentToken.transform.position.z);
         }
     }
 }

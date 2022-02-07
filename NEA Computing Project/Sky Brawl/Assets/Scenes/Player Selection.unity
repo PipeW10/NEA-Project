@@ -591,9 +591,9 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 880607883}
-  - component: {fileID: 880607882}
-  - component: {fileID: 880607885}
   - component: {fileID: 880607884}
+  - component: {fileID: 880607885}
+  - component: {fileID: 880607882}
   m_Layer: 0
   m_Name: Selection Screen Manager
   m_TagString: Untagged
@@ -656,6 +656,8 @@ MonoBehaviour:
   - {fileID: 169593064}
   - {fileID: 1979063488}
   readyButton: {fileID: 1856155752}
+  numberPlayers: 0
+  playerManager: {fileID: 962203284}
 --- !u!114 &880607885
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -669,7 +671,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   m_NotificationBehavior: 0
-  m_MaxPlayerCount: 4
+  m_MaxPlayerCount: -1
   m_AllowJoining: 1
   m_JoinBehavior: 0
   m_PlayerJoinedEvent:
@@ -731,6 +733,49 @@ Transform:
   - {fileID: 1142588907}
   m_Father: {fileID: 0}
   m_RootOrder: 5
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!1 &962203283
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 962203285}
+  - component: {fileID: 962203284}
+  m_Layer: 0
+  m_Name: Game Manager
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!114 &962203284
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 962203283}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 56bedc43e5e3738458361954c40afad2, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+--- !u!4 &962203285
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 962203283}
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: -4.4889827, y: -0.68613005, z: -11.651461}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_Children: []
+  m_Father: {fileID: 0}
+  m_RootOrder: 7
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1 &1142588905
 GameObject:
@@ -857,7 +902,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: c1ac3d9f7eff6b14a8ccd58caea3c246, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  character: {fileID: 1041913863353449789, guid: aa103d90ffcb56141ada625370795a6b, type: 3}
+  character: {fileID: 8095560416105093790, guid: 5869902eaf551474f83b9724ca6147e5, type: 3}
   face: {fileID: 8984095908926729460, guid: 296765cd9e7031b4db3606b7cf36db6a, type: 3}
   selection: {fileID: 880607884}
 --- !u!95 &1142588910
@@ -1148,7 +1193,7 @@ Camera:
   far clip plane: 1000
   field of view: 60
   orthographic: 1
-  orthographic size: 5
+  orthographic size: 5.6769137
   m_Depth: -1
   m_CullingMask:
     serializedVersion: 2
@@ -1976,7 +2021,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: c1ac3d9f7eff6b14a8ccd58caea3c246, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  character: {fileID: 7777473015825836831, guid: 3c00188fdd2015147b535d025a883131, type: 3}
+  character: {fileID: 1646694239746491452, guid: ebf9e0cf0785e4440a0691ad2446c05e, type: 3}
   face: {fileID: 8202787876469592225, guid: 9fa980a1b93d40146986938f82db7332, type: 3}
   selection: {fileID: 880607884}
 --- !u!95 &6385571958866801386
@@ -2108,7 +2153,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: c1ac3d9f7eff6b14a8ccd58caea3c246, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  character: {fileID: 1041913863353449789, guid: a8c2f53015a9f054298ee6a0537019ab, type: 3}
+  character: {fileID: 9178023089265334400, guid: f106634919040c34b9c7fb87bd05272f, type: 3}
   face: {fileID: 1257665669683395542, guid: 53f982a7375a5a549b351494c68831fb, type: 3}
   selection: {fileID: 880607884}
 --- !u!95 &7824684595759214629

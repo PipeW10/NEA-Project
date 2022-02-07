@@ -15,14 +15,14 @@ public class PlayerJoining : MonoBehaviour
         //Finds the player input component 
         playerInput = GetComponent<PlayerInput>();
         //Calls the linkInput method
-        linkInput();
+        LinkInput();
     }
 
     //Links an input device to a new player
-    private void linkInput()
+    private void LinkInput()
     {
         //If the device is not a mouse
-        if (playerInput.devices[0].GetType().ToString() != "UnityEngine.InputSystem.Mouse")
+        if (playerInput.devices[0].GetType().ToString() != "UnityEngine.InputSystem.Mouse" /*&& selectManager.numberPlayers < 4*/)
         {
             //Sets the input variable to the input device
             input = playerInput.devices[0];
