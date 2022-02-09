@@ -5,7 +5,8 @@ public class ArcherInputs : MonoBehaviour
 {
     private ArcherShot archerShot;
 
-    private void Awake()
+    // Start is called before the first frame update
+    private void Start()
     {
         archerShot = GetComponent<ArcherShot>();
     }

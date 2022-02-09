@@ -11,92 +11,106 @@ public class PlayerInputHandler : MonoBehaviour
     private UpAttack upAttack;
     private PlayerShield shield;
 
-    private void Awake()
+    // Start is called before the first frame update
+    private void Start()
     {
         playerInput = GetComponent<PlayerInput>();
+        if (playerInput.devices [0].ToString() == "UnityEngine.InputSystem.Mouse")
+        {
+            Debug.Log("Mouse");
+            gameObject.SetActive(false);
+            Destroy(gameObject);
+        }
         inputDevice = playerInput.devices[0];
         SpawnCharacter();
-        SetCharacterInput();
-        playerController = character.GetComponent<PlayerController>();
-        upAttack = character.GetComponent<UpAttack>();
-        shield = character.GetComponent<PlayerShield>();
     }
 
 
     public void Fire1(InputAction.CallbackContext context)
     {
-        if (context.performed)
+        if (context.performed && characterInputs != null)
         {
             characterInputs.Fire1(context);
         }
     }
     public void Fire2(InputAction.CallbackContext context)
     {
-        if (context.performed)
+        if (context.performed && characterInputs != null)
         {
             characterInputs.Fire2(context);
         }
     }
     public void Jump(InputAction.CallbackContext context)
     {
-        if (context.performed)
+        if (context.performed && playerController != null)
         {
             playerController.PlayerJump();
         }
     }
     public void Shield(InputAction.CallbackContext context)
     {
-        if (context.performed)
+        if (context.performed && playerController != null)
         {
             shield.ShieldOn();
         }
-        else if (context.canceled)
+        else if (context.canceled && playerController != null)
         {
             shield.ShieldOff();
         }
     }
     public void Movement(InputAction.CallbackContext context)
     {
-        playerController.Move(context.ReadValue<Vector2>());
+        if(playerController != null)
+        {
+            playerController.Move(context.ReadValue<float>());
+        }
     }
+
     public void Duck(InputAction.CallbackContext context)
     {
-        if (context.performed)
+        if (context.performed && playerController != null)
         {
             StartCoroutine(playerController.PhaseThroughPlatform());
         }
     }
     public void UpAttack(InputAction.CallbackContext context)
     {
-        if (context.performed)
+        if (context.performed && playerController != null)
         {
             upAttack.JumpAttack();
         }
-    }
-
-    private void SetCharacterInput()
-    {
-         characterInputs = character.GetComponent<CharacterInputs>();
     }
 
     private void SpawnCharacter()
     {
         if (inputDevice == PlayerManager.player1Input)
         {
-            character = Instantiate(PlayerManager.playerCharacters[0], new Vector3(0, 0, 0), Quaternion.identity);
+            character = Instantiate(PlayerManager.player1Character, new Vector3(0, 0, 0), Quaternion.identity);
+            LinkComponents();
         }
         else if (inputDevice == PlayerManager.player2Input)
         {
-            character = Instantiate(PlayerManager.playerCharacters[1], new Vector3(0, 0, 0), Quaternion.identity);
+            character = Instantiate(PlayerManager.player2Character,  new Vector3(0, 0, 0), Quaternion.identity);
+            LinkComponents();
         }
         else if (inputDevice == PlayerManager.player3Input)
         {
-            character = Instantiate(PlayerManager.playerCharacters[2], new Vector3(0, 0, 0), Quaternion.identity);
+            character = Instantiate(PlayerManager.player3Character, new Vector3(0, 0, 0), Quaternion.identity);
+            LinkComponents();
         }
         else if (inputDevice == PlayerManager.player4Input)
         {
-            character = Instantiate(PlayerManager.playerCharacters[3], new Vector3(0, 0, 0), Quaternion.identity);
+            character = Instantiate(PlayerManager.player4Character, new Vector3(0, 0, 0), Quaternion.identity);
+            LinkComponents();
         }
+
     }
 
+    private void LinkComponents()
+    {
+        playerController = character.GetComponent<PlayerController>();
+        upAttack = character.GetComponent<UpAttack>();
+        shield = character.GetComponent<PlayerShield>();
+        characterInputs = character.GetComponent<CharacterInputs>();
+    }
 }

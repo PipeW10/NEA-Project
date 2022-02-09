@@ -228,9 +228,9 @@ GameObject:
   - component: {fileID: 8095560416105093796}
   - component: {fileID: 8095560416105093797}
   - component: {fileID: 8095560416105093802}
+  - component: {fileID: -1898975837627654100}
   - component: {fileID: 2502047009429317019}
   - component: {fileID: -5961115282190210777}
-  - component: {fileID: -1898975837627654100}
   m_Layer: 6
   m_Name: Alien
   m_TagString: Untagged
@@ -454,6 +454,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   coolDownTimer: 0
   characterName: 
+  cameraRadius: 0
   jumpAttackForce: 8
   coolDownTime: 60
   upAttackCircle: {fileID: 8095560414323130451}
@@ -471,6 +472,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   coolDownTimer: 0
   characterName: 
+  cameraRadius: 0
   coolDownTime: 0.3
   firePoint: {fileID: 8095560415758408610}
   projectilePrefab: {fileID: 9127409216278204147, guid: 284bf120b25ac0e49a6d7eda53aa5b15, type: 3}
@@ -488,6 +490,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   coolDownTimer: 0
   characterName: 
+  cameraRadius: 0
   rayDamage: 4
   knockForceX: 10
   knockForceY: 50
@@ -521,33 +524,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: aa997021294f32e4dbed097270b85f35, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  healthText: {fileID: 0}
-  livesText: {fileID: 0}
-  characterFace: {fileID: 8984095908926729460, guid: 296765cd9e7031b4db3606b7cf36db6a, type: 3}
---- !u!114 &2502047009429317019
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 8095560416105093790}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 3fa5f0811a54dd348a17f84800788b5d, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
---- !u!114 &-5961115282190210777
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 8095560416105093790}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: a186c92023bd2544d8a457f3995ccc59, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
+  healthPrefab: {fileID: 7662007625616194104, guid: a5c47e63284f5324cb30daa91cd234bd, type: 3}
+  livesPrefab: {fileID: 2854546810763696213, guid: 40d3f07f8dc6b794dbd235b3409dab4a, type: 3}
 --- !u!114 &-1898975837627654100
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -562,6 +540,32 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   coolDownTimer: 0
   characterName: Alien
+  cameraRadius: 4
+--- !u!114 &2502047009429317019
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 8095560416105093790}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 3fa5f0811a54dd348a17f84800788b5d, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  player: {fileID: -1898975837627654100}
+--- !u!114 &-5961115282190210777
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 8095560416105093790}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: a186c92023bd2544d8a457f3995ccc59, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!1001 &8095560416316764293
 PrefabInstance:
   m_ObjectHideFlags: 0

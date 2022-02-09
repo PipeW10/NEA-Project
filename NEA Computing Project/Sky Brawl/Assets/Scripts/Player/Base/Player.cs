@@ -1,11 +1,34 @@
-using System.Collections;
-using System.Collections.Generic;
 using UnityEngine;
+using Cinemachine;
 
 public class Player : MonoBehaviour
 {
     [HideInInspector] public float coolDownTimer;
     [SerializeField] public string characterName;
+    private CinemachineTargetGroup targetGroup;
+    [SerializeField] private float cameraRadius;
+
+    // Start is called before the first frame update
+    private void Start()
+    {
+        //Finds an object in the scene of type CinemachineTargetGroup to be able to use the CMVcam methods
+        targetGroup = FindObjectOfType<CinemachineTargetGroup>();
+        //Calls the AddToTargetGroup method
+        AddToTargetGroup();
+        
+    }
+
+    //Removes the gameobject from the camera target group
+    public void RemoveFromTargetGroup()
+    {
+        targetGroup.RemoveMember(gameObject.transform);
+    }
+
+    //Adds the gameobject to the camera target group and sets the weight and radius
+    public void AddToTargetGroup()
+    {
+        targetGroup.AddMember(gameObject.transform, 1, cameraRadius);
+    }
 
     //Makes it so that the player can only attack again once enough time has elapsed
     public bool CoolDownCounter(float coolDownTime)
@@ -18,10 +41,5 @@ public class Player : MonoBehaviour
             return true;
         }
         return false;
-    }
-
-    public bool CheckInput()
-    {
-        return true;
     }
 }

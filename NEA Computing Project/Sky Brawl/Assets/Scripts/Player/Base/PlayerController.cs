@@ -31,30 +31,6 @@ public class PlayerController : MonoBehaviour
 
     }
 
-    //First Method to be called in the script
-    /*private void Awake()
-    {
-        //Sets the playercontrols variable to a reference for the master controls script
-        playerControls = new MasterControls();
-        //Links Inputs from the Game ipnut action map to specified sub-routines so action may be performed
-        playerControls.Game.Jump.performed += ctx => PlayerJump();
-        playerControls.Game.Duck.performed += ctx => StartCoroutine(PhaseThroughPlatform());
-    }
-
-    //Called after awake or whenever the script is enabled
-    private void OnEnable()
-    {
-        //Enables the Game Ipnut action map so this script can detect certain inputs
-        playerControls.Game.Enable();
-    }
-
-    //Called whenever the script is disabled
-    private void OnDisable()
-    {
-        //Disables the Gampe input action map
-        playerControls.Game.Disable();
-    }*/
-
     // Update is called once per frame
     void Update()
     {
@@ -72,9 +48,9 @@ public class PlayerController : MonoBehaviour
 
     }
 
-    public void Move(Vector2 moveVector)
+    public void Move(float xMove)
     {
-        xMovement = moveVector.x;
+        xMovement = xMove;
     }
 
     //FixedUpdate is called 50 times a second, no matter the framerate
@@ -86,7 +62,6 @@ public class PlayerController : MonoBehaviour
         transform.position += new Vector3(xMovement, 0, 0) * movementSpeed;
         //Sets the animation paramter speed to the characters's X velocity in order to correctly play animations
         animator.SetFloat("Speed", Mathf.Abs(xMovement));
-        xMovement = 0;
     }
 
     //Turns the player's collider into a trigger so they are not affected by the platforms and can phase through them

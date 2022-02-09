@@ -9,6 +9,7 @@ public class PlayerHealth : MonoBehaviour
     private HealthText healthText;
     private SpriteRenderer spriteRenderer;
     private PlayerShield shield;
+    private Player playerComponent;
     [HideInInspector] public float playerCurrentHealth = 0; 
 
     [Header("Player Variables")]
@@ -28,6 +29,7 @@ public class PlayerHealth : MonoBehaviour
         healthText = GetComponent<HealthText>();
         spriteRenderer = GetComponent<SpriteRenderer>();
         shield = GetComponent<PlayerShield>();
+        playerComponent = GetComponent<Player>();
         //Calls setHealthText so it updates at the start
         SetHealthText();
     }
@@ -77,6 +79,8 @@ public class PlayerHealth : MonoBehaviour
         //Updates the players health and life text
         healthText.UpdateHealth(0);
         healthText.UpdateLives(playerLives);
+        //Removes the gameObject from teh camera target group
+        playerComponent.RemoveFromTargetGroup();
         //Sets isDead to true
         isDead = true;
         //Finds all the scripts linked to the game object
@@ -114,6 +118,8 @@ public class PlayerHealth : MonoBehaviour
             spriteRenderer.enabled = true;
             //Respawns the player at the respawn point
             transform.position = respawnPoint.position;
+            //Adds the gameObject back onto the camera target group
+            playerComponent.AddToTargetGroup();
         }
         //If the player has no lives they are destroyed
         else

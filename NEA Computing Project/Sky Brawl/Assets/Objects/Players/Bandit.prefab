@@ -223,8 +223,9 @@ GameObject:
   - component: {fileID: 9178023089265334454}
   - component: {fileID: 9178023089265334455}
   - component: {fileID: 9178023089265334452}
-  - component: {fileID: 2126520090181680851}
   - component: {fileID: 5829851406695098654}
+  - component: {fileID: 2126520090181680851}
+  - component: {fileID: -1098313849371701450}
   m_Layer: 6
   m_Name: Bandit
   m_TagString: Untagged
@@ -451,6 +452,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   coolDownTimer: 0
   characterName: 
+  cameraRadius: 0
   meleeRange: 0.7
   meleeDamage: 20
   knockForceX: 250
@@ -475,6 +477,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   coolDownTimer: 0
   characterName: 
+  cameraRadius: 0
   jumpAttackForce: 8
   coolDownTime: 0
   upAttackCircle: {fileID: 9178023089647739289}
@@ -492,6 +495,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   coolDownTimer: 0
   characterName: 
+  cameraRadius: 0
   spinDamage: 10
   knockForceX: 30
   knockForceY: 50
@@ -528,21 +532,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: aa997021294f32e4dbed097270b85f35, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  healthText: {fileID: 0}
-  livesText: {fileID: 0}
-  characterFace: {fileID: 1257665669683395542, guid: 53f982a7375a5a549b351494c68831fb, type: 3}
---- !u!114 &2126520090181680851
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 9178023089265334400}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 3fa5f0811a54dd348a17f84800788b5d, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
+  healthPrefab: {fileID: 563040919457607443, guid: f520a2456cadea846ac0a1e17c107a0b, type: 3}
+  livesPrefab: {fileID: 2392864424101577077, guid: 401c6e2d4ac058e4bb99475d4a6efbb6, type: 3}
 --- !u!114 &5829851406695098654
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -557,6 +548,32 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   coolDownTimer: 0
   characterName: Bandit
+  cameraRadius: 4
+--- !u!114 &2126520090181680851
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 9178023089265334400}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 3fa5f0811a54dd348a17f84800788b5d, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  player: {fileID: 5829851406695098654}
+--- !u!114 &-1098313849371701450
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 9178023089265334400}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: c187648e80f37da4f96103ef4e917856, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!1 &9178023089353989791
 GameObject:
   m_ObjectHideFlags: 0

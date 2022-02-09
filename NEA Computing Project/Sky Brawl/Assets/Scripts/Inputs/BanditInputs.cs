@@ -8,7 +8,8 @@ public class BanditInputs : MonoBehaviour
     private PlayerMelee melee;
     private PlayerSpinAttack spinAttack;
 
-    private void Awake()
+    // Start is called before the first frame update
+    private void Start()
     {
         melee = GetComponent<PlayerMelee>();
         spinAttack = GetComponent<PlayerSpinAttack>();

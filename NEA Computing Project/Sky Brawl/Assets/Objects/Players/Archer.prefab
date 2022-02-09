@@ -80,9 +80,9 @@ GameObject:
   - component: {fileID: 1646694239746491453}
   - component: {fileID: 1646694239746491402}
   - component: {fileID: 1646694239746491403}
+  - component: {fileID: 5773988547710338670}
   - component: {fileID: 4332881266133102628}
   - component: {fileID: 184645771978809768}
-  - component: {fileID: 5773988547710338670}
   m_Layer: 6
   m_Name: Archer
   m_TagString: Untagged
@@ -305,6 +305,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   coolDownTimer: 0
   characterName: 
+  cameraRadius: 0
   jumpAttackForce: 8
   coolDownTime: 0
   upAttackCircle: {fileID: 1646694240692262271}
@@ -322,6 +323,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   coolDownTimer: 0
   characterName: 
+  cameraRadius: 0
   coolDownTime: 1
   firePoint: {fileID: 1646694239370671837}
   basicArrow: {fileID: 7777473015825836831, guid: 3c00188fdd2015147b535d025a883131, type: 3}
@@ -351,33 +353,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: aa997021294f32e4dbed097270b85f35, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  healthText: {fileID: 0}
-  livesText: {fileID: 0}
-  characterFace: {fileID: 8202787876469592225, guid: 9fa980a1b93d40146986938f82db7332, type: 3}
---- !u!114 &4332881266133102628
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 1646694239746491452}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 3fa5f0811a54dd348a17f84800788b5d, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
---- !u!114 &184645771978809768
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 1646694239746491452}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 78a9fd491a9b0324eac9295926e78ed9, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
+  healthPrefab: {fileID: 5601563784318888911, guid: 9e628c1d4abab60439efdc52bb292685, type: 3}
+  livesPrefab: {fileID: 3039379723887701869, guid: 72cef4d53db674646aa7cdf95e02f24e, type: 3}
 --- !u!114 &5773988547710338670
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -392,6 +369,32 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   coolDownTimer: 0
   characterName: Archer
+  cameraRadius: 4
+--- !u!114 &4332881266133102628
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1646694239746491452}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 3fa5f0811a54dd348a17f84800788b5d, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  player: {fileID: 5773988547710338670}
+--- !u!114 &184645771978809768
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1646694239746491452}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 78a9fd491a9b0324eac9295926e78ed9, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!1 &1646694239827460976
 GameObject:
   m_ObjectHideFlags: 0
