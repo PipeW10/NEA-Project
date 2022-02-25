@@ -12,7 +12,7 @@ public class HealthText : MonoBehaviour
     private Canvas canvas;
 
     // Start is called before the first frame update
-    private void Start()
+    private void Awake()
     {
         //Finds an object in the scene of type canvas
         canvas = FindObjectOfType<Canvas>();

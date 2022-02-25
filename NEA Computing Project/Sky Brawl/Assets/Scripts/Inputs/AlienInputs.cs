@@ -14,18 +14,23 @@ public class AlienInputs : MonoBehaviour
         shot = GetComponent<PlayerShot>();
     }
 
-    //Called from character
+    //Called from character inputs
     public void Fire1(InputAction.CallbackContext context)
     {
+        //If the action was performed
         if (context.performed)
         {
+            //Calls the FireShot method from the shot script
             shot.FireShot();
         }
     }
+    //Called from character inputs
     public void Fire2(InputAction.CallbackContext context)
     {
+        //If the action was performed
         if (context.performed)
         {
+            //Calls the FireLaser method from the laser script
             StartCoroutine(laser.FireLaser());
         }
     }

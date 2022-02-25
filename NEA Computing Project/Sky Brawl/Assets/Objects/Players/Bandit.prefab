@@ -224,8 +224,8 @@ GameObject:
   - component: {fileID: 9178023089265334455}
   - component: {fileID: 9178023089265334452}
   - component: {fileID: 5829851406695098654}
-  - component: {fileID: 2126520090181680851}
   - component: {fileID: -1098313849371701450}
+  - component: {fileID: 7055954615669821283}
   m_Layer: 6
   m_Name: Bandit
   m_TagString: Untagged
@@ -416,6 +416,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 0e82f726e0c3cc44fa771c8ee0d0a5f3, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  playerComponent: {fileID: 0}
   playerCurrentHealth: 0
   healthDamping: 0.8
   playerLives: 3
@@ -453,6 +454,7 @@ MonoBehaviour:
   coolDownTimer: 0
   characterName: 
   cameraRadius: 0
+  characterSprite: {fileID: 0}
   meleeRange: 0.7
   meleeDamage: 20
   knockForceX: 250
@@ -478,6 +480,7 @@ MonoBehaviour:
   coolDownTimer: 0
   characterName: 
   cameraRadius: 0
+  characterSprite: {fileID: 0}
   jumpAttackForce: 8
   coolDownTime: 0
   upAttackCircle: {fileID: 9178023089647739289}
@@ -496,6 +499,7 @@ MonoBehaviour:
   coolDownTimer: 0
   characterName: 
   cameraRadius: 0
+  characterSprite: {fileID: 0}
   spinDamage: 10
   knockForceX: 30
   knockForceY: 50
@@ -549,19 +553,7 @@ MonoBehaviour:
   coolDownTimer: 0
   characterName: Bandit
   cameraRadius: 4
---- !u!114 &2126520090181680851
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 9178023089265334400}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 3fa5f0811a54dd348a17f84800788b5d, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  player: {fileID: 5829851406695098654}
+  characterSprite: {fileID: 3686047127886269201, guid: e80d27dda4a2f704fbdc9fa045e52347, type: 3}
 --- !u!114 &-1098313849371701450
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -574,6 +566,19 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: c187648e80f37da4f96103ef4e917856, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+--- !u!114 &7055954615669821283
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 9178023089265334400}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 3fa5f0811a54dd348a17f84800788b5d, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  player: {fileID: 5829851406695098654}
 --- !u!1 &9178023089353989791
 GameObject:
   m_ObjectHideFlags: 0

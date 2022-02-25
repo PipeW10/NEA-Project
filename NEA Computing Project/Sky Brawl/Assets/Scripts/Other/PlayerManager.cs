@@ -1,5 +1,7 @@
 using UnityEngine;
 using UnityEngine.InputSystem;
+using UnityEngine.SceneManagement;
+using System.Collections;
 
 public class PlayerManager : MonoBehaviour
 {
@@ -15,12 +17,27 @@ public class PlayerManager : MonoBehaviour
     public static GameObject player4Character;
 
     public static string mapToPlay;
+    public static int numberOfPlayers;
+    public static int playersAlive;
+    public static GameObject winner;
+
+
+    public static PlayerManager playerManager;
 
     //First method called when the script is activated
     private void Awake()
     {
         //Makes sure the variables aren't reset
         DontDestroyOnLoad(gameObject);
+        //Checks to see whether there is another player manager in the scene and if so, destroys the gameObject
+        if(playerManager == null)
+        {
+            playerManager = this;
+        }
+        else
+        {
+            Destroy(gameObject);
+        }
     }
 
     //Sets the input device when a new player joins to the input device they are using
@@ -43,6 +60,8 @@ public class PlayerManager : MonoBehaviour
                 player4Input = input;
                 break;
         }
+        numberOfPlayers = playerNumber;
+        playersAlive = numberOfPlayers;
     }
 
     //Sets the player's chosen character to then be instatiated
@@ -65,6 +84,26 @@ public class PlayerManager : MonoBehaviour
         }
     }
 
+    //Called from PlayerHealth whenever a player dies
+    public IEnumerator PlayerDied()
+    {
+        //Minus 1 from playersAlive
+        playersAlive -= 1;
+        //If only 1 player is left alive
+        if(playersAlive == 1)
+        {
+            //Set winner to the characterSprite object on the player left alive
+            winner = FindObjectOfType<Player>().characterSprite;
+            //Load the winscreen
+            SceneManager.LoadScene("Win Screen");
+            //Waits one second
+            yield return new WaitForSeconds(1);
+            //Instantiate the winner object
+            Instantiate(winner, new Vector3(4, 0, -2), Quaternion.identity);
+        }
+    }
+
+
     //Is used to set the mapToPlay variable to the map chosen by the player
     public void SetMap(string chosenMap)
     {
@@ -78,5 +117,23 @@ public class PlayerManager : MonoBehaviour
         {
             mapToPlay = null;
         }
+    }
+
+    //Method used to clear all variables so a new game can be started
+    public void ClearSelections()
+    {
+        player1Character = null;
+        player2Character = null;
+        player3Character = null;
+        player4Character = null;
+
+        player1Input = null;
+        player2Input = null;
+        player3Input = null;
+        player4Input = null;
+
+        playersAlive = 0;
+        numberOfPlayers = 0;
+        mapToPlay = null;
     }
 }

@@ -7,6 +7,7 @@ public class Player : MonoBehaviour
     [SerializeField] public string characterName;
     private CinemachineTargetGroup targetGroup;
     [SerializeField] private float cameraRadius;
+    [SerializeField] public GameObject characterSprite;
 
     // Start is called before the first frame update
     private void Start()
@@ -21,13 +22,17 @@ public class Player : MonoBehaviour
     //Removes the gameobject from the camera target group
     public void RemoveFromTargetGroup()
     {
-        targetGroup.RemoveMember(gameObject.transform);
+        targetGroup = FindObjectOfType<CinemachineTargetGroup>();
+        if (targetGroup.FindMember(gameObject.transform) != -1 && targetGroup != null)
+        {
+            targetGroup.RemoveMember(gameObject.transform);
+        }
     }
 
     //Adds the gameobject to the camera target group and sets the weight and radius
     public void AddToTargetGroup()
     {
-        targetGroup.AddMember(gameObject.transform, 1, cameraRadius);
+        targetGroup.AddMember(gameObject.transform, 1, 4);
     }
 
     //Makes it so that the player can only attack again once enough time has elapsed

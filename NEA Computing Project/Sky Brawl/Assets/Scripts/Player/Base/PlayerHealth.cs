@@ -9,7 +9,7 @@ public class PlayerHealth : MonoBehaviour
     private HealthText healthText;
     private SpriteRenderer spriteRenderer;
     private PlayerShield shield;
-    private Player playerComponent;
+    [SerializeField] private Player playerComponent;
     [HideInInspector] public float playerCurrentHealth = 0; 
 
     [Header("Player Variables")]
@@ -30,6 +30,7 @@ public class PlayerHealth : MonoBehaviour
         spriteRenderer = GetComponent<SpriteRenderer>();
         shield = GetComponent<PlayerShield>();
         playerComponent = GetComponent<Player>();
+        respawnPoint = FindObjectOfType<RespawnPoint>().transform;
         //Calls setHealthText so it updates at the start
         SetHealthText();
     }
@@ -79,7 +80,7 @@ public class PlayerHealth : MonoBehaviour
         //Updates the players health and life text
         healthText.UpdateHealth(0);
         healthText.UpdateLives(playerLives);
-        //Removes the gameObject from teh camera target group
+        //Removes the gameObject from the camera target group
         playerComponent.RemoveFromTargetGroup();
         //Sets isDead to true
         isDead = true;
@@ -97,12 +98,12 @@ public class PlayerHealth : MonoBehaviour
         rigidBody.velocity = new Vector2(0, 0);
         //Disables the player's sprite renderer
         spriteRenderer.enabled = false; 
-        //waits for a set amount of time before executing the next line
-        yield return new WaitForSeconds(respawnTime);
 
         //If the player still has lives left
         if (playerLives > 0)
         {
+            //waits for a set amount of time before executing the next line
+            yield return new WaitForSeconds(respawnTime);
             //Sets isDead to false
             isDead = false;
             //Enables all scripts linked to the game object in order to make sure the character can no longer move when dead
@@ -124,6 +125,7 @@ public class PlayerHealth : MonoBehaviour
         //If the player has no lives they are destroyed
         else
         {
+            FindObjectOfType<PlayerManager>().PlayerDied();
             Destroy(gameObject);
         }
     }

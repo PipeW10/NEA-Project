@@ -211,7 +211,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 6dfe72aa001488b44b084e5bbb8c0d62, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  mapName: Space Battle
+  mapName: Space
 --- !u!212 &134295911
 SpriteRenderer:
   m_ObjectHideFlags: 0

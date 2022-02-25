@@ -15,17 +15,23 @@ public class BanditInputs : MonoBehaviour
         spinAttack = GetComponent<PlayerSpinAttack>();
     }
 
+    //Called from character inputs
     public void Fire1(InputAction.CallbackContext context)
     {
+        //If the action was performed
         if (context.performed)
         {
+            //Calls the MeleeAttack method fromthe PlayerMelee script
             melee.MeleeAttack();
         }
     }
+    //Called from character inputs
     public void Fire2(InputAction.CallbackContext context)
     {
+        //If the action was performed
         if (context.performed)
         {
+            //Calls teh SpinAttack method from the PlayerSpinAttack script
             StartCoroutine(spinAttack.SpinAttack());
         }
     }

@@ -14,75 +14,103 @@ public class PlayerInputHandler : MonoBehaviour
     // Start is called before the first frame update
     private void Start()
     {
+        //Finds the playerInput component on the object instantiated by the Player Input Manager when a new player joins
         playerInput = GetComponent<PlayerInput>();
+        //If the input device that joined was a mouse
         if (playerInput.devices [0].ToString() == "UnityEngine.InputSystem.Mouse")
         {
-            Debug.Log("Mouse");
+            //Disable then destroy the gameObject
             gameObject.SetActive(false);
             Destroy(gameObject);
         }
+        //Sets the inputDevice variable to the inputDevice currently in use
         inputDevice = playerInput.devices[0];
+        //Calls the spawn character method
         SpawnCharacter();
     }
 
-
+    //Method is called whenever the Fire1 input is pressed by the player
     public void Fire1(InputAction.CallbackContext context)
     {
+        //If the input was "performed" and the character inputs is not null
         if (context.performed && characterInputs != null)
         {
+            //Calls the Fire1 method on the characterInputs script
             characterInputs.Fire1(context);
         }
     }
+    //Method is called whenever the Fire2 input is pressed by the player
     public void Fire2(InputAction.CallbackContext context)
     {
+        //If the input was "performed" and the character inputs is not null
         if (context.performed && characterInputs != null)
         {
+            //Calls the Fire2 method on the characterInputs script
             characterInputs.Fire2(context);
         }
     }
+    //Method is called whenever the Jump input is pressed by the player
     public void Jump(InputAction.CallbackContext context)
     {
+        //If the input was "performed" and the character inputs is not null
         if (context.performed && playerController != null)
         {
+            //Calls the PlayerJump method on the playerController script
             playerController.PlayerJump();
         }
     }
+    //Method is called whenever the Shield input is pressed by the player
     public void Shield(InputAction.CallbackContext context)
     {
-        if (context.performed && playerController != null)
+        //If the input was "performed" and the shield is not null
+        if (context.performed && shield != null)
         {
+            //Calls the shieldOn method on the shield component
             shield.ShieldOn();
         }
-        else if (context.canceled && playerController != null)
+        //If the input was "canceled" and the shield is not null
+        else if (context.canceled && shield != null)
         {
+            //Calls the shieldOff method on the shield component
             shield.ShieldOff();
         }
     }
+    //Method is called whenever the Movement input is performed by the player
     public void Movement(InputAction.CallbackContext context)
     {
+        //If the playerController is not null
         if(playerController != null)
         {
+            //Calls the Move method on the player controller and passes the value of the input as a float
             playerController.Move(context.ReadValue<float>());
         }
     }
-
+    //Method is called whenever the Duck input is pressed by the player
     public void Duck(InputAction.CallbackContext context)
     {
+        //If the input was "performed" and the playercontroller is not null
         if (context.performed && playerController != null)
         {
+            //Calls the PhaseThroughPlatform method on the playerController
             StartCoroutine(playerController.PhaseThroughPlatform());
         }
     }
+    //Method is called whenever the UpAttack input is pressed by the player
     public void UpAttack(InputAction.CallbackContext context)
     {
-        if (context.performed && playerController != null)
+        //If the input was "performed" and the upAttack is not null
+        if (context.performed && upAttack != null)
         {
+            //Calls the JumpAttack method on the up attack script
             upAttack.JumpAttack();
         }
     }
 
+    //Is used to spawn the correct character at the beginning of a match
     private void SpawnCharacter()
     {
+        //Compares each input device stored to teh input device currently in use
+        //Then, instantiates the correct character
         if (inputDevice == PlayerManager.player1Input)
         {
             character = Instantiate(PlayerManager.player1Character, new Vector3(0, 0, 0), Quaternion.identity);
@@ -106,6 +134,7 @@ public class PlayerInputHandler : MonoBehaviour
 
     }
 
+    //Links each component on the instatiated character
     private void LinkComponents()
     {
         playerController = character.GetComponent<PlayerController>();
