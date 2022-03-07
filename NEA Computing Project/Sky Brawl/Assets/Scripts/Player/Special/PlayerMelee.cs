@@ -77,10 +77,10 @@ public class PlayerMelee : Player
             animator.SetTrigger("Attack");
 
             //Sets the player's Y velocity to 0 if they are falling so air attacks feel better
-            if(rigidBody.velocity.y < 0)
+            /*if(rigidBody.velocity.y < 0)
             {
                 rigidBody.velocity = new Vector2 (rigidBody.velocity.x , 0);
-            }
+            }*/
 
             //Detects any enemies inside the attack range
             Collider2D[] hitEnemies =  Physics2D.OverlapCircleAll(meleePoint.position, meleeRange, enemyLayers);

@@ -41,6 +41,7 @@ public class ReadyButton : MonoBehaviour
         {
             //Loads the map to be played on by finding the mapToPlay variable on the player manager script
             SceneManager.LoadScene(PlayerManager.mapToPlay);
+            playerManager.WaitForPlayers(false);
             musicController.SetAudio();
         }
 

@@ -125,6 +125,7 @@ public class PlayerHealth : MonoBehaviour
         //If the player has no lives they are destroyed
         else
         {
+            gameObject.SetActive(false);
             FindObjectOfType<PlayerManager>().PlayerDied();
             Destroy(gameObject);
         }

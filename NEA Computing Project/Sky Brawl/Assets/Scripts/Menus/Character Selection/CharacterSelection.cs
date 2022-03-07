@@ -40,7 +40,7 @@ public class CharacterSelection : MonoBehaviour
         }
 
         //If all players are ready the ready button is displayed
-        if (allReady && numberPlayers > 0)
+        if (allReady && numberPlayers > 1)
         {
             readyButton.gameObject.SetActive(true);
         }

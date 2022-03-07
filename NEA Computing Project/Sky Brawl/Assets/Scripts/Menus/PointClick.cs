@@ -7,8 +7,10 @@ public class PointClick : MonoBehaviour
     private Mouse mouse;
     private InputAction drag, click;
     private GameObject currentToken;
-    private bool mouseOnReady;
+    private bool mouseOnReady, mouseOnBack;
+
     [SerializeField] ReadyButton readyButton;
+    [SerializeField] BackButton backButton;
 
     //Called after awake or whenever the script is enabled
     private void OnEnable()
@@ -49,20 +51,24 @@ public class PointClick : MonoBehaviour
         {
            //Sets the object hit variable to whatever game object the mouse is above
            GameObject objectHit = Physics2D.Raycast(Camera.main.ScreenToWorldPoint(mouse.position.ReadValue()), Vector2.zero).collider.gameObject;
-           //Checks whether the object hit game object has a token script (Is a token)
-           if (objectHit.GetComponent<Token>() != null || objectHit.GetComponent<MapToken>() != null)
-           {
+            //Checks whether the object hit game object has a token script (Is a token)
+            if (objectHit.GetComponent<Token>() != null || objectHit.GetComponent<MapToken>() != null)
+            {
                 //If so, sets currenToken to token hit 
                 currentToken = objectHit;
                 //and links the Drag method to the drag action
                 drag.performed += Drag;
-           }
-           //Else, checks whether the object was the ready button
-           else if(objectHit == readyButton.gameObject)
-           {
+            }
+            //Else, checks whether the object was the ready button
+            else if (objectHit == readyButton.gameObject)
+            {
                 //Sets mouseOnReady to true
                 mouseOnReady = true;
-           }
+            }
+            else if (objectHit == backButton.gameObject)
+            {
+                mouseOnBack = true;
+            }
         }
     }
 
@@ -81,6 +87,10 @@ public class PointClick : MonoBehaviour
         {
             //Calls the loadMap method from the readyButton script
             readyButton.LoadMap();
+        }
+        else if (mouseOnBack)
+        {
+            backButton.LoadPreviousScene();
         }
         //Un-links the drag method from the drag aciton
     }

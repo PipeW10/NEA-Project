@@ -27,6 +27,8 @@ public class PlayerInputHandler : MonoBehaviour
         inputDevice = playerInput.devices[0];
         //Calls the spawn character method
         SpawnCharacter();
+        //Calls the wait for players method from the player manager script
+        FindObjectOfType<PlayerManager>().WaitForPlayers(true);
     }
 
     //Method is called whenever the Fire1 input is pressed by the player

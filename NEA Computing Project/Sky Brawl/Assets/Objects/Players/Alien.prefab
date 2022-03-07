@@ -495,11 +495,11 @@ MonoBehaviour:
   characterName: 
   cameraRadius: 0
   characterSprite: {fileID: 0}
-  rayDamage: 4
-  knockForceX: 10
-  knockForceY: 50
+  rayDamage: 3
+  knockForceX: 0
+  knockForceY: 0
   knockBackTime: 0
-  coolDownTime: 0
+  coolDownTime: 0.2
   firePoint: {fileID: 8095560415758408610}
   impactEffect: {fileID: 1041913863353449789, guid: a8c2f53015a9f054298ee6a0537019ab, type: 3}
   laserLine: {fileID: 540424634069331422}
@@ -530,6 +530,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   healthPrefab: {fileID: 7662007625616194104, guid: a5c47e63284f5324cb30daa91cd234bd, type: 3}
   livesPrefab: {fileID: 2854546810763696213, guid: 40d3f07f8dc6b794dbd235b3409dab4a, type: 3}
+  characterFacePrefab: {fileID: 3997329757523014473, guid: 5dbcd33f8c8e13847837966d2ac77ee2, type: 3}
 --- !u!114 &-1898975837627654100
 MonoBehaviour:
   m_ObjectHideFlags: 0

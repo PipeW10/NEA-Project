@@ -72,10 +72,10 @@ public class PlayerShot : Player
             animator.SetTrigger("Attack");
 
             //Sets the player's Y velocity to 0 if they are falling so air attacks feel better
-            if (rigidBody.velocity.y < 0)
+            /*if (rigidBody.velocity.y < 0)
             {
                 rigidBody.velocity = new Vector2(rigidBody.velocity.x, 0);
-            }
+            }*/
 
             //Creates a bullet clone from the fire point
             GameObject projectile = Instantiate(projectilePrefab, firePoint.position, firePoint.rotation);

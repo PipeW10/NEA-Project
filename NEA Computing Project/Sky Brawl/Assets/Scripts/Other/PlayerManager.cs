@@ -19,6 +19,7 @@ public class PlayerManager : MonoBehaviour
     public static string mapToPlay;
     public static int numberOfPlayers;
     public static int playersAlive;
+    public static int playersJoinedGame;
     public static GameObject winner;
 
 
@@ -33,6 +34,7 @@ public class PlayerManager : MonoBehaviour
         if(playerManager == null)
         {
             playerManager = this;
+            playersJoinedGame = 0;
         }
         else
         {
@@ -85,7 +87,7 @@ public class PlayerManager : MonoBehaviour
     }
 
     //Called from PlayerHealth whenever a player dies
-    public IEnumerator PlayerDied()
+    public void PlayerDied()
     {
         //Minus 1 from playersAlive
         playersAlive -= 1;
@@ -96,10 +98,6 @@ public class PlayerManager : MonoBehaviour
             winner = FindObjectOfType<Player>().characterSprite;
             //Load the winscreen
             SceneManager.LoadScene("Win Screen");
-            //Waits one second
-            yield return new WaitForSeconds(1);
-            //Instantiate the winner object
-            Instantiate(winner, new Vector3(4, 0, -2), Quaternion.identity);
         }
     }
 
@@ -134,6 +132,23 @@ public class PlayerManager : MonoBehaviour
 
         playersAlive = 0;
         numberOfPlayers = 0;
+        playersJoinedGame = 0;
         mapToPlay = null;
+    }
+
+    public void WaitForPlayers(bool playerJoined)
+    {
+        if (playerJoined)
+        {
+            playersJoinedGame++;
+            if (playersJoinedGame == numberOfPlayers)
+            {
+                Time.timeScale = 1f;
+            }
+        }
+        else
+        {
+            Time.timeScale = 0f;
+        }
     }
 }

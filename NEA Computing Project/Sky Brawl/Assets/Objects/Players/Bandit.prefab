@@ -500,11 +500,11 @@ MonoBehaviour:
   characterName: 
   cameraRadius: 0
   characterSprite: {fileID: 0}
-  spinDamage: 10
+  spinDamage: 15
   knockForceX: 30
   knockForceY: 50
   knockBackTime: 0
-  coolDownTime: 3
+  coolDownTime: 1
   spinPoint1: {fileID: 9178023088700437115}
   spinPoint2: {fileID: 9178023089353989788}
   enemyLayers:
@@ -538,6 +538,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   healthPrefab: {fileID: 563040919457607443, guid: f520a2456cadea846ac0a1e17c107a0b, type: 3}
   livesPrefab: {fileID: 2392864424101577077, guid: 401c6e2d4ac058e4bb99475d4a6efbb6, type: 3}
+  characterFacePrefab: {fileID: 7891510868259648081, guid: 2698abaf1ba336c4385d6ed3e2db5514, type: 3}
 --- !u!114 &5829851406695098654
 MonoBehaviour:
   m_ObjectHideFlags: 0

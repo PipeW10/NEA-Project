@@ -145,9 +145,10 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   arrowSpeed: 1000
-  arrowDamage: 10
+  arrowDamage: 20
   knockForceX: 150
   knockForceY: 150
+  knockBackTime: 0
   isStickyArrow: 0
   arrowPlayerImpact: {fileID: 1041913863353449789, guid: a8c2f53015a9f054298ee6a0537019ab, type: 3}
   arrowMapImpact: {fileID: 1377653660384536747, guid: 30b6e53d79c1abb4191486fe82cf2c35, type: 3}

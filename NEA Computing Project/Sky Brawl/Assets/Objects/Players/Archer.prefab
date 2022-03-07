@@ -358,6 +358,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   healthPrefab: {fileID: 5601563784318888911, guid: 9e628c1d4abab60439efdc52bb292685, type: 3}
   livesPrefab: {fileID: 3039379723887701869, guid: 72cef4d53db674646aa7cdf95e02f24e, type: 3}
+  characterFacePrefab: {fileID: 944495431528555090, guid: bef57611fdc1f7049ba43233a54e922c, type: 3}
 --- !u!114 &5773988547710338670
 MonoBehaviour:
   m_ObjectHideFlags: 0
