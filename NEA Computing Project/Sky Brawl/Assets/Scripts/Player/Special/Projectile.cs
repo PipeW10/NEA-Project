@@ -34,7 +34,7 @@ public class Projectile : MonoBehaviour
             //If a PlayerHealth script is found, the TakeDamage sub-rountine will take place on the collider
             if (colliderHealth != null)
             {
-                colliderHealth.TakeDamage(projectileDamage, gameObject, knockForceX, knockForceY, knockBackTime);
+                colliderHealth.TakeDamage(projectileDamage, shooter, knockForceX, knockForceY, knockBackTime);
             }
 
             //Creates a bullet impact effect when a collision happens

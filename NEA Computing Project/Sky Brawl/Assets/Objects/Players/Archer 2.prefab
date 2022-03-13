@@ -83,6 +83,7 @@ GameObject:
   - component: {fileID: 4998919336716047579}
   - component: {fileID: 4998919336716047580}
   - component: {fileID: 4998919336716047581}
+  - component: {fileID: 6664582675913296702}
   m_Layer: 6
   m_Name: Archer 2
   m_TagString: Untagged
@@ -400,6 +401,25 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   player: {fileID: 4998919336716047579}
+--- !u!114 &6664582675913296702
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 4998919336716047582}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 5d6aa4aa09d071d45a2426e4ea1c4bcd, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  baseMoveSpeed: 0.1
+  speedBuff: 1.5
+  damageBuff: 2
+  buffTime: 10
+  buffTimer: 0
+  isSpeedBuffed: 0
+  isDamageBuffed: 0
 --- !u!1 &4998919337327085809
 GameObject:
   m_ObjectHideFlags: 0

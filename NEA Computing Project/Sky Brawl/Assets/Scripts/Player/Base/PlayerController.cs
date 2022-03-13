@@ -203,6 +203,11 @@ public class PlayerController : MonoBehaviour
             animator.SetBool("IsJumping", true);
         }
     }
+
+    public void SetMoveSpeed(float newSpeed)
+    {
+        movementSpeed = newSpeed;
+    }
         //Draws a circle around the attack point to easily see and change the attack range
     //Only used when developing the game
     private void OnDrawGizmosSelected()

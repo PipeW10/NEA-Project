@@ -8,6 +8,7 @@ public class PlayerShield : MonoBehaviour
     private float shieldConstant;
     private SpriteRenderer sprite;
     private MonoBehaviour playerMovement;
+    private PlayerPowerUps playerPower;
     //private MasterControls playerControls;
 
     [Header("Shield Variables")]
@@ -20,6 +21,7 @@ public class PlayerShield : MonoBehaviour
         //Sets the variables rigidBody and animator to the character's Controller and Sprite Renderer Components in order to easily access variables
         sprite = GetComponent<SpriteRenderer>();
         playerMovement = GetComponent<PlayerController>();
+        playerPower = GetComponent<PlayerPowerUps>();
         //Sets a constant multiplier to be used to change between the shield timer and health
         shieldConstant = shieldMaxTime * shieldMaxHealth;
         //Sets the shield timer and health to the values they need to be at the start of the match
@@ -127,8 +129,19 @@ public class PlayerShield : MonoBehaviour
     public void ShieldOff()
     {
         isShieldOn = false;
+        if (playerPower.isDamageBuffed)
+        {
+            sprite.color = Color.red;
+        }
+        else if (playerPower.isSpeedBuffed)
+        {
+            sprite.color = Color.yellow;
+        }
+        else
+        {
         //Changes the player's colour back to white
         sprite.color = Color.white;
+        }
         //Enables player movement
         playerMovement.enabled = true;
     }
