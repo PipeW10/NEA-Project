@@ -17,6 +17,8 @@ public class PlayerManager : MonoBehaviour
     public static GameObject player4Character;
 
     public static string mapToPlay;
+    public static bool useInteractions;
+    public static bool usePowerUps;
     public static int numberOfPlayers;
     public static int playersAlive;
     public static int playersJoinedGame;
@@ -117,6 +119,12 @@ public class PlayerManager : MonoBehaviour
         }
     }
 
+    public void SettingsChoices(bool nPowerups, bool nInteractions)
+    {
+        useInteractions = nInteractions;
+        usePowerUps = nPowerups;
+    }
+
     //Method used to clear all variables so a new game can be started
     public void ClearSelections()
     {
@@ -134,6 +142,9 @@ public class PlayerManager : MonoBehaviour
         numberOfPlayers = 0;
         playersJoinedGame = 0;
         mapToPlay = null;
+
+        usePowerUps = false;
+        useInteractions = false;
     }
 
     public void WaitForPlayers(bool playerJoined)

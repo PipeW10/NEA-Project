@@ -25,7 +25,11 @@ public class ReadyButton : MonoBehaviour
         //If the current scene is the start menu
         else if (SceneManager.GetActiveScene().name == "Start Menu")
         {
-            //Loads the Map Menu scene
+            //Loads the Settings scene
+            SceneManager.LoadScene("Settings");
+        }
+        else if (SceneManager.GetActiveScene().name == "Settings")
+        {
             SceneManager.LoadScene("Map Menu");
         }
         //If the current scene is the Win Screen

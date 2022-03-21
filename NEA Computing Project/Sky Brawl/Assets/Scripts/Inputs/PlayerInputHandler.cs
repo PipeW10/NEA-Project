@@ -55,7 +55,7 @@ public class PlayerInputHandler : MonoBehaviour
     public void Jump(InputAction.CallbackContext context)
     {
         //If the input was "performed" and the character inputs is not null
-        if (context.performed && playerController != null)
+        if (context.performed && playerController != null && playerController.isActiveAndEnabled)
         {
             //Calls the PlayerJump method on the playerController script
             playerController.PlayerJump();
@@ -81,7 +81,7 @@ public class PlayerInputHandler : MonoBehaviour
     public void Movement(InputAction.CallbackContext context)
     {
         //If the playerController is not null
-        if(playerController != null)
+        if(playerController != null && playerController.isActiveAndEnabled)
         {
             //Calls the Move method on the player controller and passes the value of the input as a float
             playerController.Move(context.ReadValue<float>());
@@ -91,7 +91,7 @@ public class PlayerInputHandler : MonoBehaviour
     public void Duck(InputAction.CallbackContext context)
     {
         //If the input was "performed" and the playercontroller is not null
-        if (context.performed && playerController != null)
+        if (context.performed && playerController != null && playerController.isActiveAndEnabled)
         {
             //Calls the PhaseThroughPlatform method on the playerController
             StartCoroutine(playerController.PhaseThroughPlatform());
@@ -101,7 +101,7 @@ public class PlayerInputHandler : MonoBehaviour
     public void UpAttack(InputAction.CallbackContext context)
     {
         //If the input was "performed" and the upAttack is not null
-        if (context.performed && upAttack != null)
+        if (context.performed && upAttack != null && playerController.isActiveAndEnabled)
         {
             //Calls the JumpAttack method on the up attack script
             upAttack.JumpAttack();

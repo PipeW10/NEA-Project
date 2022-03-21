@@ -461,7 +461,7 @@ MonoBehaviour:
   knockForceX: 250
   knockForceY: 250
   coolDownTime: 3
-  knockBackTime: 0
+  knockBackTime: 0.1
   meleePoint: {fileID: 9178023087828003022}
   enemyLayers:
     serializedVersion: 2

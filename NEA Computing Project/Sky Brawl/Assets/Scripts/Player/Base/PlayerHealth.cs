@@ -48,9 +48,16 @@ public class PlayerHealth : MonoBehaviour
         //Only take damage is the player's shield is off, they didn't attack themsleves and they are not dead
         if (shield.isShieldOn == false && gameObject != attacker && isDead == false)
         {
-            if (attacker.GetComponent<PlayerPowerUps>().isDamageBuffed)
+            //Checks to see if the attacker is a character
+            PlayerPowerUps attackerPowerUp = attacker.GetComponent<PlayerPowerUps>();
+            if (attackerPowerUp != null)
             {
-                damageDealt = Mathf.RoundToInt(damageDealt * attacker.GetComponent<PlayerPowerUps>().damageBuff);
+                //Checks to see if the attacker has the damage power-up currently on
+                if (attackerPowerUp.isDamageBuffed)
+                {
+                    //If so, the damage dealt is multiplyed by the damageBuff
+                    damageDealt = Mathf.RoundToInt(damageDealt * attacker.GetComponent<PlayerPowerUps>().damageBuff);
+                }
             }
             //Increases the player's "percentage" with their damping effect
             playerCurrentHealth += damageDealt * healthDamping;
