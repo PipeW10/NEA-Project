@@ -10,6 +10,7 @@ public class PlayerHealth : MonoBehaviour
     private SpriteRenderer spriteRenderer;
     private PlayerShield shield;
     [SerializeField] private Player playerComponent;
+    private PlayerManager playerManager;
     [HideInInspector] public float playerCurrentHealth = 0; 
 
     [Header("Player Variables")]
@@ -30,6 +31,7 @@ public class PlayerHealth : MonoBehaviour
         spriteRenderer = GetComponent<SpriteRenderer>();
         shield = GetComponent<PlayerShield>();
         playerComponent = GetComponent<Player>();
+        playerManager = FindObjectOfType<PlayerManager>();
         respawnPoint = FindObjectOfType<RespawnPoint>().transform;
         //Calls setHealthText so it updates at the start
         SetHealthText();
@@ -58,6 +60,9 @@ public class PlayerHealth : MonoBehaviour
                     //If so, the damage dealt is multiplyed by the damageBuff
                     damageDealt = Mathf.RoundToInt(damageDealt * attacker.GetComponent<PlayerPowerUps>().damageBuff);
                 }
+                //Calls the update stats method in the player manager
+                // Inside this if statement to make sure the attacker is a player and not a meteor
+                playerManager.UpdateStats(attacker, Mathf.RoundToInt(damageDealt * healthDamping));
             }
             //Increases the player's "percentage" with their damping effect
             playerCurrentHealth += damageDealt * healthDamping;

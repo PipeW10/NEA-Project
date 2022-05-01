@@ -30,48 +30,9 @@ public class PlayerShield : MonoBehaviour
        
     }
 
-    //First Method to be called in the script
-    private void Awake()
-    {
-        //Sets the playercontrols variable to a reference for the master controls script
-        //playerControls = new MasterControls();
-        //Links Inputs from the Game ipnut action map to specified sub-routines so action may be performed
-        //playerControls.Game.Shield.performed += ctx => ShieldOn();
-        //playerControls.Game.Shield.canceled += ctx => ShieldOff();
-    }
-
-    //Called after awake or whenever the script is enabled
-    private void OnEnable()
-    {
-        //Enables the Game Ipnut action map so this script can detect certain inputs
-        //playerControls.Game.Enable();
-    }
-
-    //Called whenever the script is disabled
-    private void OnDisable()
-    {
-        //Disables the Gampe input action map
-        //playerControls.Game.Disable();
-    }
-
     // Update is called once per frame
     private void Update()
     {
-
-       /* //If the shield button is held down and the shield is currently off and the timer hasn't surpased the max time allowed, ShieldOn is called
-        if (Input.GetButton("Shield") && isShieldOn == false 
-            && GetComponent<KnockBackEffect>().isKnockedBack == false 
-            && shieldTimer > 0)
-        {
-            ShieldOn();
-        }
-
-        //If the shield button is released and the shield is on ShieldOff is called
-        if (Input.GetButtonUp("Shield"))
-        {
-            ShieldOff();
-        }*/
-
         //If the shield is on, the shield degeneration subroutine is called
         if(isShieldOn)
         {

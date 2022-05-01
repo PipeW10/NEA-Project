@@ -16,7 +16,7 @@ public class SnowMeteor : MonoBehaviour
         PlayerController enemyControl = enemyHit.GetComponent<PlayerController>();
         SpriteRenderer enemySprite = enemyHit.GetComponent<SpriteRenderer>();
 
-        //If the enemy isn't already stuck
+        //If the enemy isn't already frozen
         if (enemyControl.isActiveAndEnabled)
         {
             //Changes the enemy's colour to cyan and disables their movement

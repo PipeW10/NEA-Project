@@ -8,6 +8,7 @@ public class Player : MonoBehaviour
     private CinemachineTargetGroup targetGroup;
     [SerializeField] private float cameraRadius;
     [SerializeField] public GameObject characterSprite;
+    [HideInInspector] public int characterNumber;
 
     // Start is called before the first frame update
     private void Start()

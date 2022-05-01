@@ -7,7 +7,7 @@ public class CageWalls : MonoBehaviour
     //This is used so the players don't interact with the cage walls
     private void OnTriggerEnter2D(Collider2D collision)
     {
-        //If they collide with a part from the map cage, they die
+        //If a player collides with a part from the map cage, they die
         if (collision.gameObject.layer == 6) 
         {
             StartCoroutine(collision.gameObject.GetComponent<PlayerHealth>().Die());

@@ -54,7 +54,7 @@ public class PlayerInputHandler : MonoBehaviour
     //Method is called whenever the Jump input is pressed by the player
     public void Jump(InputAction.CallbackContext context)
     {
-        //If the input was "performed" and the character inputs is not null
+        //If the input was "performed" and the character inputs is not null and is enabled
         if (context.performed && playerController != null && playerController.isActiveAndEnabled)
         {
             //Calls the PlayerJump method on the playerController script
@@ -80,7 +80,7 @@ public class PlayerInputHandler : MonoBehaviour
     //Method is called whenever the Movement input is performed by the player
     public void Movement(InputAction.CallbackContext context)
     {
-        //If the playerController is not null
+        //If the playerController is not null and is enabled
         if(playerController != null && playerController.isActiveAndEnabled)
         {
             //Calls the Move method on the player controller and passes the value of the input as a float
@@ -90,7 +90,7 @@ public class PlayerInputHandler : MonoBehaviour
     //Method is called whenever the Duck input is pressed by the player
     public void Duck(InputAction.CallbackContext context)
     {
-        //If the input was "performed" and the playercontroller is not null
+        //If the input was "performed" and the playercontroller is not null and is enabled
         if (context.performed && playerController != null && playerController.isActiveAndEnabled)
         {
             //Calls the PhaseThroughPlatform method on the playerController
@@ -100,7 +100,7 @@ public class PlayerInputHandler : MonoBehaviour
     //Method is called whenever the UpAttack input is pressed by the player
     public void UpAttack(InputAction.CallbackContext context)
     {
-        //If the input was "performed" and the upAttack is not null
+        //If the input was "performed" and the upAttack is not null and that the player controller is enabled
         if (context.performed && upAttack != null && playerController.isActiveAndEnabled)
         {
             //Calls the JumpAttack method on the up attack script
@@ -111,29 +111,37 @@ public class PlayerInputHandler : MonoBehaviour
     //Is used to spawn the correct character at the beginning of a match
     private void SpawnCharacter()
     {
-        //Compares each input device stored to teh input device currently in use
+        //Used so each character has a unique number stored in their player script
+        //  this number is then used to store match stats in the player manager
+        int playerNumber = 0;
+        //Compares each input device stored to the input device currently in use
         //Then, instantiates the correct character
         if (inputDevice == PlayerManager.player1Input)
         {
             character = Instantiate(PlayerManager.player1Character, new Vector3(0, 0, 0), Quaternion.identity);
             LinkComponents();
+            playerNumber = 1;
         }
         else if (inputDevice == PlayerManager.player2Input)
         {
             character = Instantiate(PlayerManager.player2Character,  new Vector3(0, 0, 0), Quaternion.identity);
             LinkComponents();
+            playerNumber = 2;
         }
         else if (inputDevice == PlayerManager.player3Input)
         {
             character = Instantiate(PlayerManager.player3Character, new Vector3(0, 0, 0), Quaternion.identity);
             LinkComponents();
+            playerNumber = 3;
         }
         else if (inputDevice == PlayerManager.player4Input)
         {
             character = Instantiate(PlayerManager.player4Character, new Vector3(0, 0, 0), Quaternion.identity);
             LinkComponents();
+            playerNumber = 4;
         }
-
+        //Sets the character number in the player script
+        character.GetComponent<Player>().characterNumber = playerNumber;
     }
 
     //Links each component on the instatiated character

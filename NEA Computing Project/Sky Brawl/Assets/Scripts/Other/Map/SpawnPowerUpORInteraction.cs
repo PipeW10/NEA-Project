@@ -1,7 +1,4 @@
-using System.Collections;
-using System.Collections.Generic;
 using UnityEngine;
-
 public class SpawnPowerUpORInteraction : MonoBehaviour
 {
     [SerializeField] private GameObject speedPowerUp, damagePowerUp, meteor, snowMeteor;
@@ -16,33 +13,45 @@ public class SpawnPowerUpORInteraction : MonoBehaviour
         randomTime = 50;
         //Finds the map's respawn point and stores it in the spawnPosition variable
         spawnPosition = FindObjectOfType<RespawnPoint>().transform.position;
-
+        //Calls the SetRandomRange method
         SetRandomRange();
         //Calls the SetRandomTime method
         SetRandomTime();
     }
 
+    //Sets the range of the random number used to choose what powerup or interaction to spawn
+    //Based off what settings the players chose to play with
     private void SetRandomRange()
     {
+        //Finds the values stored in the player manager which tells the script
+        // what options the player picked in the settings menu
         bool useInteractions = PlayerManager.useInteractions;
         bool usePowerUps = PlayerManager.usePowerUps;
+        //If the player wants both interactions and powerups
         if (usePowerUps && useInteractions)
         {
+            //Use the full range of values
             minRandom = 1;
             maxRandom = 5;
         }
+        //If the player just wants to use powerups
         else if(usePowerUps && !useInteractions)
         {
+            //Just use values that will spawn powerups
             minRandom = 1;
             maxRandom = 3;
         }
+        //If the player just wants to use interactions
         else if (!usePowerUps && useInteractions)
         {
+            //Just use values that will spawn interactions
             minRandom = 3;
             maxRandom = 5;
         }
+        //If the doesn't want powerups nor interactions
         else
         {
+            //Destroy this gameObject as it is not needed
             Destroy(gameObject);
         }
     }

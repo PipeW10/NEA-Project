@@ -16,6 +16,8 @@ public class PlayerManager : MonoBehaviour
     public static GameObject player3Character;
     public static GameObject player4Character;
 
+    public static int[] damageStats;
+
     public static string mapToPlay;
     public static bool useInteractions;
     public static bool usePowerUps;
@@ -37,6 +39,7 @@ public class PlayerManager : MonoBehaviour
         {
             playerManager = this;
             playersJoinedGame = 0;
+            damageStats = new int[4];
         }
         else
         {
@@ -119,6 +122,8 @@ public class PlayerManager : MonoBehaviour
         }
     }
 
+    //Sets the useInteractions and usePowerups to true or false depending on what the players picked 
+    // in the settings menu
     public void SettingsChoices(bool nPowerups, bool nInteractions)
     {
         useInteractions = nInteractions;
@@ -147,19 +152,52 @@ public class PlayerManager : MonoBehaviour
         useInteractions = false;
     }
 
+    //Wiats until all players have joined the match to the start it
     public void WaitForPlayers(bool playerJoined)
     {
+        //If playerjoined is true
         if (playerJoined)
         {
+            //Increases the playersJoinedGame variable by one
             playersJoinedGame++;
+            //If number of players joined is equal to the amount of players
+            // that should be playing
             if (playersJoinedGame == numberOfPlayers)
             {
+                //Sets time back to normal and starts the match
                 Time.timeScale = 1f;
             }
         }
+        //If playerjoined is false
         else
         {
+            //Freeze time to pause the game
             Time.timeScale = 0f;
+        }
+    }
+
+    //Update player damage stats dr=uring the game
+    // Called from a player's health script
+    public void UpdateStats(GameObject character, int damageDealt)
+    {
+        //Finds the character's player number 
+        int playerNumber = character.GetComponent<Player>().characterNumber;
+        //Updates the correct element in the damageStats array using a switch case
+        // Switch case uses playerNumber as the case
+        switch (playerNumber)
+        {
+            case 1:
+                damageStats[0] += damageDealt;
+                break;
+            case 2:
+                damageStats[1] += damageDealt;
+                break;
+            case 3:
+                damageStats[2] += damageDealt;
+                break;
+            case 4:
+                damageStats[3] += damageDealt;
+                break;
         }
     }
 }
